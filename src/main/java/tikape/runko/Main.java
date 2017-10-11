@@ -1,39 +1,74 @@
-package tikape.runko;
+package tikapeWebSovellus;
 
-import java.util.HashMap;
-import spark.ModelAndView;
-import static spark.Spark.*;
-import spark.template.thymeleaf.ThymeleafTemplateEngine;
-import tikape.runko.database.Database;
-import tikape.runko.database.OpiskelijaDao;
+import spark.*;
+import java.util.*;
+import spark.template.thymeleaf.*;
+import java.sql.*;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Database database = new Database("jdbc:sqlite:opiskelijat.db");
-        database.init();
-
-        OpiskelijaDao opiskelijaDao = new OpiskelijaDao(database);
-
-        get("/", (req, res) -> {
+        Connection yhteys = DriverManager.getConnection("jdbc:sqlite:tietokanta.db");
+        Statement komento = yhteys.createStatement();
+        ResultSet tulos = komento.executeQuery("SELECT 1");
+        if (tulos.next()) {
+            System.out.println("Tietokanta toimii!");
+        } else {
+            System.out.println("Tietokanta ei ole käytössä!");
+        }
+        Spark.get("/sivu", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("viesti", "tervehdys");
 
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
 
-        get("/opiskelijat", (req, res) -> {
+        Spark.get("/opiskelijat", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("opiskelijat", opiskelijaDao.findAll());
-
             return new ModelAndView(map, "opiskelijat");
         }, new ThymeleafTemplateEngine());
 
-        get("/opiskelijat/:id", (req, res) -> {
+        Spark.get("/kurssit", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("opiskelija", opiskelijaDao.findOne(Integer.parseInt(req.params("id"))));
-
-            return new ModelAndView(map, "opiskelija");
+            return new ModelAndView(map, "kurssit");
         }, new ThymeleafTemplateEngine());
+
+        Spark.get("/index", (req, res) -> {
+            HashMap map = new HashMap<>();
+            return new ModelAndView(map, "index");
+        }, new ThymeleafTemplateEngine());
+        
+        Spark.get("/haeOpiskelija", (req, res) -> {
+            HashMap map = new HashMap<>();
+            return new ModelAndView(map, "haeOpiskelija");
+        }, new ThymeleafTemplateEngine());
+        
+        Spark.get("/lisaaOpiskelija", (req, res) -> {
+            HashMap map = new HashMap<>();
+            return new ModelAndView(map, "lisaaOpiskelija");
+        }, new ThymeleafTemplateEngine());
+        
+        Spark.get("/lisaaKurssisuoritus", (req, res) -> {
+            HashMap map = new HashMap<>();
+            return new ModelAndView(map, "lisaaKurssisuoritus");
+        }, new ThymeleafTemplateEngine());
+        
+        
+        Spark.get("/lisaaKurssi", (req, res) -> {
+            HashMap map = new HashMap<>();
+            return new ModelAndView(map, "lisaaKurssi");
+        }, new ThymeleafTemplateEngine());
+        
+        
+        Spark.get("/listaaKurssinOpiskelijat", (req, res) -> {
+            HashMap map = new HashMap<>();
+            return new ModelAndView(map, "listaaKurssinOpiskelijat");
+        }, new ThymeleafTemplateEngine());
+        
+        
+        Spark.get("/lisaaOpiskelijaKurssille", (req, res) -> {
+            HashMap map = new HashMap<>();
+            return new ModelAndView(map, "lisaaOpiskelijaKurssille");
+        }, new ThymeleafTemplateEngine());
+        
     }
 }
