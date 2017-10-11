@@ -7,12 +7,10 @@
     </head>
 
     <body>
-        <h1>Hei opiskelijat!</h1>
-
-        <ol>
-            <li th:each="opiskelija: ${opiskelijat}">
-                <span th:text="${opiskelija.nimi}">opiskelijan nimi</span> <a th:href="${'/opiskelijat/' + opiskelija.id}">linkki</a>
-            </li>
-        </ol>
+        <h1>Opiskelijat</h1>
+        <a href="lisaaOpiskelija">lisaa opiskelija</a>
+        <a href="haeOpiskelija">hae opiskelija</a>
+        <a href="lisaaKurssisuoritus">lisaa kurssisuoritus</a>
+        <a href="index">Takaisin</a>
     </body>
 </html>
