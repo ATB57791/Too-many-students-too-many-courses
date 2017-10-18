@@ -4,19 +4,19 @@ Tietokantojen perusteet -kurssilla tehtävän web-sovelluksen pohja.
 
 Tietokannan Aseluvat.db schematiikka:
 
-  CREATE TABLE Varusmies(
-  hetu varchar(10) PRIMARY KEY,
-  nimi varchar(50));
+    CREATE TABLE Varusmies(
+    hetu varchar(10) PRIMARY KEY,
+    nimi varchar(50));
 
-  CREATE TABLE Ase(
-  aseenNumero integer PRIMARY KEY,
-  Asetyyppi varchar(20));
+    CREATE TABLE Ase(
+    aseenNumero integer PRIMARY KEY,
+    Asetyyppi varchar(20));
 
-  CREATE TABLE Kayttooikeus(
-  varusmies_hetu varchar(10),
-  ase_aseenNumero integer,
-  FOREIGN KEY (varusmies_hetu) REFERENCES Varusmies(hetu),
-  FOREIGN KEY (ase_aseenNumero) REFERENCES Ase(aseenNumero));
+    CREATE TABLE Kayttooikeus(
+    varusmies_hetu varchar(10),
+    ase_aseenNumero integer,
+    FOREIGN KEY (varusmies_hetu) REFERENCES Varusmies(hetu),
+    FOREIGN KEY (ase_aseenNumero) REFERENCES Ase(aseenNumero));
 
 Taulujen sisältö:
   Varusmies:
