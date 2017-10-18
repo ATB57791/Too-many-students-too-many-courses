@@ -3,11 +3,13 @@ package tikape.runko.database;
 import java.sql.*;
 import java.util.*;
 
-public interface Dao<T, K> {
+public interface Dao<Class, Key> {
 
-    T findOne(K key) throws SQLException;
+    List<Class> findAll() throws SQLException;
 
-    List<T> findAll() throws SQLException;
+    void delete(Key key) throws SQLException;
 
-    void delete(K key) throws SQLException;
+    Class saveOrUpdate(Class object) throws SQLException;
+
+    Class findOne(Key key) throws SQLException;
 }
