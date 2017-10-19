@@ -24,23 +24,14 @@
         </table>
         <h1>Käyttöoikeutetut</h1>
         <table>
-            <tr>
-                <th>Nimi</th>
-                <th>Hetu</th>
-            </tr>
-            <tr th:each ="varusmies : ${kayttooikeutetut}">
+            <tr th:each ="kayttooikeus : ${kayttooikeudet}">
                 <td>
-                    <a href="" th:href="" th:text="${varusmies.nimi}">
-                        Tkm Järvinen
+                    <a href="" th:href="" th:text="${kayttooikeus.varusmies}" title="Mene tämän varusmiehen sivulle">
+                        Tkm Järvinen, 160800A4753
                     </a>
                 </td>
                 <td>
-                    <a href="" th:href="" th:text="${varusmies.hetu}">
-                        160800A4753
-                    </a>
-                </td>
-                <td>
-                    <a href="" th:href="" title="Poista aseen käyttöoikeus tältä sotilaalta">poista</a>
+                    <a href="" th:href="" title="Poista aseen käyttöoikeus tältä varusmieheltä">poista</a>
                 </td>
             </tr>
         </table>

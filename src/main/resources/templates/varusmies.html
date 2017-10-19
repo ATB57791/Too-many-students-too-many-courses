@@ -24,19 +24,10 @@
         </table>
         <h1>Käyttöoikeudet</h1>
         <table>
-            <tr>
-                <th>Nimi</th>
-                <th>Numero</th>
-            </tr>
-            <tr th:each ="ase : ${aseet}">
+            <tr th:each ="kayttooikeus : ${kayttooikeudet}">
                 <td>
-                    <a href="" th:href="" th:text="${ase.nimi}">
-                        RK 62
-                    </a>
-                </td>
-                <td>
-                    <a href="" th:href="" th:text="${ase.numero}">
-                        123456
+                    <a href="" th:href="" th:text="${kayttooikeus.ase}" title="Mene tämän aseen sivulle">
+                        RK 62, 123456
                     </a>
                 </td>
                 <td>
