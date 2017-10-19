@@ -11,14 +11,14 @@ import tikape.runko.database.*;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Connection yhteys = DriverManager.getConnection("jdbc:sqlite:Aseluvat.db");
-        Statement komento = yhteys.createStatement();
-        ResultSet tulos = komento.executeQuery("SELECT 1");
-        if (tulos.next()) {
-            System.out.println("Tietokanta toimii!");
-        } else {
-            System.out.println("Tietokanta ei ole käytössä!");
-        }
+//        Connection yhteys = DriverManager.getConnection("jdbc:sqlite:Aseluvat.db");
+//        Statement komento = yhteys.createStatement();
+//        ResultSet tulos = komento.executeQuery("SELECT 1");
+//        if (tulos.next()) {
+//            System.out.println("Tietokanta toimii!");
+//        } else {
+//            System.out.println("Tietokanta ei ole käytössä!");
+//        }
         
         
 //        List<Ase> aseet = new ArrayList();
