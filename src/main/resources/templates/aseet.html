@@ -11,13 +11,12 @@
 
         <ol>
             <li th:each="ase : ${aseet}">
-                <a th:href="@{~/ase/{id}(id=${ase.asenumero})}">
-                    <span th:text="${ase.nimi}"></span>
+                <a href="" th:text="${ase.nimi}" th:href="@{~/ase/{id}(id=${ase.asenumero})}">
+                    aseen nimi
                 </a>
-                
             </li>
         </ol>
-        <form method="POST" action="/aseet">
+        <form method="POST" th:action="/aseet">
             Numero: <br/>
             <input type="text" name="numero"/><br/>
             Tyyppi: <br/>
