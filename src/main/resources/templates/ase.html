@@ -21,19 +21,21 @@
         <h1>Käyttöoikeutetut</h1>
         <ol>
             <li th:each ="varusmies : ${kayttooikeutetut}">
-                <a th:href="@{~/varusmies/{id}(id=${varusmies.hetu})}">
-                    <span th:text="${varusmies.nimi}, ${varusmies.hetu}">User</span>
+                <a href="" th:text="${varusmies.nimi}, ${varusmies.hetu}" th:href="@{~/varusmies/{id}(id=${varusmies.hetu})}">
+                    Varusmies, hetu
                 </a>
-                <a th:href="@{~/poistakayttooikeus/{id_ase}(id_ase=${numero})/{id_varusmies}(id_varusmies=${varusmies.hetu})}">Poista</a>
+                <a href="" th:href="@{~/poistakayttooikeus/{id_ase}(id_ase=${numero})/{id_varusmies}(id_varusmies=${varusmies.hetu})}">
+                    Poista
+                </a>
             </li>
         </ol>
-        <form method ="post" action ="/ase/${numero}/ko">
+        <form method ="post" th:action ="/ase/${numero}/ko">
             <input type="text" value="nimi"></input>
             <input type="text" value="hetu"</input>
             <button type="submit">Lisää käyttöoikeutettu</button>
         </form>
         <h1>Toiminnot</h1>
-        <form method ="post" action ="/ase${numero}">
+        <form method ="post" th:action ="/ase${numero}">
             <button type ="submit">Poista ase</button>
         </form>
     </body>
