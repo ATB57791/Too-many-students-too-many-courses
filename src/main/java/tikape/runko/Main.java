@@ -75,7 +75,7 @@ public class Main {
             map.put("numero",vm.getHetu());
             return new ModelAndView(map, "varusmies");
         }, new ThymeleafTemplateEngine());
-        Spark.post("/poistakayttooikeus/:id_ase/id_varusmies", (req, res) -> {
+        Spark.post("/poistakayttooikeus/:id_ase/:id_varusmies", (req, res) -> {
             Ase ase = aseetNumeroittain.get(req.params(":id_ase"));
             Varusmies vm = varusmiehetNumeroittain.get(req.params(":id_varusmies"));
             kayttooikeutetut.get(ase).remove(vm);
