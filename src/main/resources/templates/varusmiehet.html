@@ -2,30 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Aseet</title>
+        <title>Varusmiehet</title>
         <meta charset="utf-8" />
     </head>
 
     <body>
-        <h1>Aseet</h1>
+        <h1>Varusmiehet</h1>
         <table>
             <tr>
                 <th>
                     nimi
                 </th>
                 <th>
-                    numero
+                    hetu
                 </th>
             </tr>
-            <tr th:each="ase : ${aseet}">
+            <tr th:each="varusmies : ${varusmiehet}">
                 <td>
-                    <a href="" th:href="" th:text="${ase.nimi}">
-                        RK 62
+                    <a href="" th:href="" th:text="${varusmies.nimi}">
+                        Tkm Järvinen
                     </a>
                 </td>
                 <td>
-                    <a href="" th:href="" th:text="${ase.numero}">
-                        123456
+                    <a href="" th:href="" th:text="${varusmies.hetu}">
+                        160800A4753
                     </a>
                 </td>
             </tr>

@@ -1,0 +1,30 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Etsintä</title>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <h1>Etsinnän tulokset</h1>
+
+        <table>
+            <tr th:each="tulos : ${tulokset}">
+                <td>
+                    <a href="" th:href="" th:text="${tulos}">
+                        löydetty varusmies tai ase
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+        <form method="POST" action="/aseet">
+            <input type="text" name="hakusana" value="hakusana"/>
+            <input type="submit" value="hae" title="Hae tietokannasta varusmiehiä tai aseita"/>
+        </form>
+        <a href="" title="Palaa takaisin pääsivulle">
+            Takaisin
+        </a>   
+    </body>
+</html>
