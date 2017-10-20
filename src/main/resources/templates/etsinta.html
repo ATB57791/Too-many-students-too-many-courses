@@ -12,18 +12,18 @@
         <table>
             <tr th:each="tulos : ${tulokset}">
                 <td>
-                    <a href="" th:href="" th:text="${tulos}">
+                    <a href="" th:href="@{~/{id}(id=${tulos.id})}" th:text="${tulos}">
                         löydetty varusmies tai ase
                     </a>
                 </td>
             </tr>
         </table>
 
-        <form method="POST" action="/aseet">
+        <form method="POST" action="/haku">
             <input type="text" name="hakusana" value="hakusana"/>
             <input type="submit" value="hae" title="Hae tietokannasta varusmiehiä tai aseita"/>
         </form>
-        <a href="" title="Palaa takaisin pääsivulle">
+        <a th:href="@{~/paasivu}" title="Palaa takaisin pääsivulle">
             Takaisin
         </a>   
     </body>
