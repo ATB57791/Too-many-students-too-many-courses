@@ -24,28 +24,19 @@
         </table>
         <h1>Käyttöoikeudet</h1>
         <table>
-            <tr>
-                <th>Nimi</th>
-                <th>Numero</th>
-            </tr>
-            <tr th:each ="ase : ${aseet}">
+            <tr th:each ="kayttooikeus : ${kayttooikeudet}">
                 <td>
-                    <a href="" th:href="" th:text="${ase.nimi}">
-                        RK 62
+                    <a href="" th:href="@{~/{id}(id=${kayttooikeus.id})}" th:text="${kayttooikeus.ase}" title="Mene tämän aseen sivulle">
+                        RK 62, 123456
                     </a>
                 </td>
                 <td>
-                    <a href="" th:href="" th:text="${ase.numero}">
-                        123456
-                    </a>
-                </td>
-                <td>
-                    <a href="" th:href="" title="Poista tämän aseen käyttöoikeus">poista</a>
+                    <a href="" th:href="@{~/kayttooikeus/{id}(id=${kayttooikeus.id})}" title="Poista tämän aseen käyttöoikeus">poista</a>
                 </td>
             </tr>
         </table>
-        Virhe: asetta ei löydy tietokannasta
-        <form method ="post" action ="">
+        Virhe: syöttämääsi asetta ei löydy tietokannasta
+        <form method ="post" action ="/kayttooikeus">
             <input type="text" value="nimi"></input>
             <input type="text" value="numero"</input>
             <button type="submit" title="Lisää varusmiehelle uusi käyttöoikeus">
@@ -53,7 +44,7 @@
             </button>
         </form>
         <h1>Toiminnot</h1>
-        <form method ="post" action ="" title="Poistaa varusmiehen kokonaan tietokannasta">
+        <form method ="post" th:action ="@{~/varusmies/poista/{id}(id=${numero})}" title="Poistaa varusmiehen kokonaan tietokannasta">
             <button type ="submit">Poista varusmies</button>
         </form>
     </body>
