@@ -9,28 +9,15 @@
     <body>
         <h1>Aseet</h1>
         <table>
-            <tr>
-                <th>
-                    nimi
-                </th>
-                <th>
-                    numero
-                </th>
-            </tr>
             <tr th:each="ase : ${aseet}">
                 <td>
-                    <a href="" th:href="" th:text="${ase.nimi}">
-                        RK 62
-                    </a>
-                </td>
-                <td>
-                    <a href="" th:href="" th:text="${ase.numero}">
-                        123456
+                    <a href="" th:href="@{~/ase/{id}(id=${ase.numero})}" th:text="${ase}">
+                        RK 62, 123456
                     </a>
                 </td>
             </tr>
         </table>
-        <a href="" title="Palaa takaisin pääsivulle">
+        <a th:href="@{~/paasivu}" title="Palaa takaisin pääsivulle">
             Takaisin
         </a>
     </body>
