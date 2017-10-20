@@ -9,28 +9,15 @@
     <body>
         <h1>Varusmiehet</h1>
         <table>
-            <tr>
-                <th>
-                    nimi
-                </th>
-                <th>
-                    hetu
-                </th>
-            </tr>
             <tr th:each="varusmies : ${varusmiehet}">
                 <td>
-                    <a href="" th:href="" th:text="${varusmies.nimi}">
-                        Tkm Järvinen
-                    </a>
-                </td>
-                <td>
-                    <a href="" th:href="" th:text="${varusmies.hetu}">
-                        160800A4753
+                    <a href="" th:href="@{~/{id}(id=${varusmies.id})}" th:text="${varusmies}">
+                        Tkm Järvinen, 160800A4753
                     </a>
                 </td>
             </tr>
         </table>
-        <a href="" title="Palaa takaisin pääsivulle">
+        <a href="/paasivu" title="Palaa takaisin pääsivulle">
             Takaisin
         </a>
     </body>
