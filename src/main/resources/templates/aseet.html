@@ -11,13 +11,13 @@
         <table>
             <tr th:each="ase : ${aseet}">
                 <td>
-                    <a href="" th:href="@{~/ase/{id}(id=${ase.numero})}" th:text="${ase}">
+                    <a th:href="@{~/ase/{id}(id=${ase.numero})}" th:text="${ase}" title ="aseen sivu">
                         RK 62, 123456
                     </a>
                 </td>
             </tr>
         </table>
-        <a th:href="@{~/paasivu}" title="Palaa takaisin pääsivulle">
+        <a href="/paasivu" title="Palaa takaisin pääsivulle">
             Takaisin
         </a>
     </body>

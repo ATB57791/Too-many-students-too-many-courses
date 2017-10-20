@@ -11,7 +11,7 @@
         <table>
             <tr th:each="varusmies : ${varusmiehet}">
                 <td>
-                    <a href="" th:href="@{~/{id}(id=${varusmies.id})}" th:text="${varusmies}">
+                    <a href="" th:href="@{~/varusmies/{id}(id=${varusmies.id})}" th:text="${varusmies}">
                         Tkm Järvinen, 160800A4753
                     </a>
                 </td>
