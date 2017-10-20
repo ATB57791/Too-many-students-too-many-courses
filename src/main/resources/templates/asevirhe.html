@@ -24,28 +24,19 @@
         </table>
         <h1>Käyttöoikeutetut</h1>
         <table>
-            <tr>
-                <th>Nimi</th>
-                <th>Hetu</th>
-            </tr>
-            <tr th:each ="varusmies : ${kayttooikeutetut}">
+            <tr th:each ="kayttooikeus : ${kayttooikeudet}">
                 <td>
-                    <a href="" th:href="" th:text="${varusmies.nimi}">
-                        Tkm Järvinen
+                    <a href="" th:href="@{~/varusmies/{id}(id=${kayttooikeus.varusmies.hetu})}" th:text="${kayttooikeus.varusmies}" title="Mene tämän varusmiehen sivulle">
+                        Tkm Järvinen, 160800A4753
                     </a>
                 </td>
                 <td>
-                    <a href="" th:href="" th:text="${varusmies.hetu}">
-                        160800A4753
-                    </a>
-                </td>
-                <td>
-                    <a href="" th:href="" title="Poista aseen käyttöoikeus tältä sotilaalta">poista</a>
+                    <a href="@{~/kayttooikeus/{id}(id=${kayttooikeus.id})}" th:href="" title="Poista aseen käyttöoikeus tältä varusmieheltä">poista</a>
                 </td>
             </tr>
         </table>
-        Virhe: lisättävää varusmiestä ei löytynyt tietokannasta
-        <form method ="post" action ="">
+        Virhe: lisättävää varusmiestä ei löytynyt!
+        <form method ="post" th:action ="@{~/ase/{id}(id=${numero})}">
             <input type="text" value="nimi"></input>
             <input type="text" value="hetu"</input>
             <button type="submit" title="Lisää aseelle uusi käyttöoikeutettu">
@@ -53,7 +44,7 @@
             </button>
         </form>
         <h1>Toiminnot</h1>
-        <form method ="post" action ="" title="Poistaa aseen kokonaan tietokannasta">
+        <form method ="post" th:action ="@{~/ase/poista/{id}(id=${numero})}" title="Poistaa aseen kokonaan tietokannasta">
             <button type ="submit">Poista ase</button>
         </form>
     </body>
