@@ -1,6 +1,6 @@
-package tikapeWebSovellus;
+package tikape.runko;
 
-public class Varusmies {
+public class Varusmies implements Tulos {
     private String nimi;
     private String hetu;
     
@@ -15,6 +15,15 @@ public class Varusmies {
     
     public String getHetu() {
         return hetu;
+    }
+
+    @Override
+    public String getId() {
+        return hetu;
+    }
+    
+    public String toString() {
+        return nimi + ", " + hetu;
     }
    
 }

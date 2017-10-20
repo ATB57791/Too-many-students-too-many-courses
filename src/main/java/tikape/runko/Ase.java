@@ -1,19 +1,28 @@
-package tikapeWebSovellus;
+package tikape.runko;
 
-public class Ase {
+public class Ase implements Tulos {
     private String nimi;
-    private String asenumero;
+    private String numero;
     
     Ase(String nimi, String asenumero) {
         this.nimi = nimi;
-        this.asenumero = asenumero;
+        this.numero = asenumero;
     }
     
     public String getNimi() {
         return nimi;
     }
     
-    public String getAsenumero() {
-        return asenumero;
+    public String getNumero() {
+        return numero;
+    }
+    
+    public String toString() {
+        return nimi + ", " + numero;
+    }
+
+    @Override
+    public String getId() {
+        return numero;
     }
 }
