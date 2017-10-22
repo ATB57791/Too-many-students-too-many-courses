@@ -26,12 +26,16 @@
         <table>
             <tr th:each ="kayttooikeus : ${kayttooikeudet}">
                 <td>
-                    <a href="" th:href="@{~/{id}(id=${kayttooikeus.id})}" th:text="${kayttooikeus.ase}" title="Mene tämän aseen sivulle">
+                    <a href="" th:href="@{~/ase/{id}(id=${kayttooikeus.numero})}" th:text="${kayttooikeus}" title="Mene tämän aseen sivulle">
                         RK 62, 123456
                     </a>
                 </td>
                 <td>
-                    <a href="" th:href="@{~/kayttooikeus/{id}(id=${kayttooikeus.id})}" title="Poista tämän aseen käyttöoikeus">poista</a>
+                    <form method="post" action ="/kayttooikeus">
+                        <input type="hidden" name="ase" th:value="${kayttooikeus.numero}"/>
+                        <input type="hidden" name="hetu" th:value="${numero}"/>
+                        <button type="submit">Poista</button>
+                    </form>
                 </td>
             </tr>
         </table>
