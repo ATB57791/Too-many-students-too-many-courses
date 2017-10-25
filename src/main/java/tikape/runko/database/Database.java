@@ -15,7 +15,7 @@ public class Database {
             connection = DriverManager.getConnection("jdbc:sqlite:" + databaseAddress);
             System.out.println("Opened database successfully");
             System.out.println("****************************");
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
         }
         init();
     }
@@ -95,13 +95,13 @@ public class Database {
     
     public List<Ase> getAseet() throws SQLException {
         return queryAndCollect("SELECT * FROM Ase;", rs -> {
-            return new Ase(rs.getString("Asetyyppi"), rs.getInt("aseenNumero"));
+            return new Ase(rs.getString("Asetyyppi"), rs.getString("aseenNumero"));
         });
     }
     
     public List<Kayttooikeus> getKayttooikeudet() throws SQLException {
         return queryAndCollect("SELECT * FROM Kayttooikeus;", rs -> {
-            return new Kayttooikeus(rs.getInt("ase_aseenNumero"), rs.getString("varusmies_hetu"));
+            return new Kayttooikeus(rs.getString("ase_aseenNumero"), rs.getString("varusmies_hetu"));
         });
     }
     

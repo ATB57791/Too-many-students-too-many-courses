@@ -2,9 +2,9 @@ package tikape.runko;
 
 public class Ase {
     private String nimi;
-    private int asenumero;
+    private String asenumero;
     
-    public Ase(String nimi, int asenumero) {
+    public Ase(String nimi, String asenumero) {
         this.nimi = nimi;
         this.asenumero = asenumero;
     }
@@ -13,7 +13,7 @@ public class Ase {
         return nimi;
     }
     
-    public int getAsenumero() {
+    public String getNumero() {
         return asenumero;
     }
 }

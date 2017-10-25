@@ -45,7 +45,7 @@ public class AseDao implements Dao<Ase, Integer>{
         Integer id = rs.getInt("aseenNumero");
         String nimi = rs.getString("Asetyyppi");
 
-        Ase o = new Ase(nimi, id);
+        Ase o = new Ase(nimi, id.toString());
 
         rs.close();
         stmt.close();

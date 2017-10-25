@@ -64,7 +64,7 @@ public class Main {
             List<Varusmies> varusmieslista = kayttooikeutetut.get(ase);
             List<Kayttooikeus> kayttooikeudet = new ArrayList();
             for (Varusmies varusmies : varusmieslista) {
-                kayttooikeudet.add(new Kayttooikeus("", varusmies, ase));
+                kayttooikeudet.add(new Kayttooikeus(varusmies.getHetu(), ase.getNumero()));
             }
             HashMap map = new HashMap<>();
             map.put("nimi", ase.getNimi());
