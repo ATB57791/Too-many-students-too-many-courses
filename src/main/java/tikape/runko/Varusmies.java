@@ -1,10 +1,10 @@
 package tikape.runko;
 
-public class Varusmies implements Tulos {
+public class Varusmies {
     private String nimi;
     private String hetu;
     
-    Varusmies(String nimi, String hetu) {
+    public Varusmies(String nimi, String hetu) {
         this.hetu = hetu;
         this.nimi = nimi;
     }
@@ -15,15 +15,6 @@ public class Varusmies implements Tulos {
     
     public String getHetu() {
         return hetu;
-    }
-
-    @Override
-    public String getId() {
-        return hetu;
-    }
-    
-    public String toString() {
-        return nimi + ", " + hetu;
     }
    
 }

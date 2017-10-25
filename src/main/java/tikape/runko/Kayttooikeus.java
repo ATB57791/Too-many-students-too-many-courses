@@ -1,24 +1,24 @@
 package tikape.runko;
 
+/**
+ *
+ * @author anton
+ */
 public class Kayttooikeus {
-    private String id;
-    private Varusmies varusmies;
-    private Ase ase;
+    private int aseenNumero;
+    private String hetu;
     
-    public Kayttooikeus(String id, Varusmies varusmies, Ase ase) {
-        this.varusmies = varusmies;
-        this.ase = ase;
+    public Kayttooikeus(int numero, String hetu){
+        this.aseenNumero=numero;
+        this.hetu=hetu;
+    }
+
+    public int getAseenNumero() {
+        return aseenNumero;
+    }
+
+    public String getHetu() {
+        return hetu;
     }
     
-    public String getId() {
-        return id;
-    }
-    
-    public Varusmies getVarusmies() {
-        return varusmies;
-    }
-    
-    public Ase getAse() {
-        return ase;
-    }
 }
