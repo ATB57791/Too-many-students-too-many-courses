@@ -1,0 +1,20 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Varusmiehen lisäys</title>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <h1>Varusmiehen lisäys</h1>
+        <form method="POST" action="/varusmieslisays">
+            <input type="text" name="nimi" value="nimi"/>
+            <input type="text" name="numero" value="hetu"/>
+            <input type="submit" value="lisaa varusmies" title="lisää varusmiehen tietokantaan"/>
+        </form>
+        <a href="/paasivu" title="Palaa takaisin pääsivulle">
+            Takaisin
+        </a>
+    </body>
+</html>

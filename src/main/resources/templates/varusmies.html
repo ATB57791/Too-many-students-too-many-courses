@@ -1,0 +1,54 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title th:text="${nimi}">Varusmies sivu</title>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <h1>Perustiedot</h1>
+        <table>
+            <tr>
+                <th>Nimi</th>
+                <th>Hetu</th>
+            </tr>
+            <tr>
+                <td th:text="${nimi}">
+                    Tkm Järvinen
+                </td>
+                <td th:text="${numero}">
+                    160800A4753
+                </td>
+            </tr>
+        </table>
+        <h1>Käyttöoikeudet</h1>
+        <table>
+            <tr th:each ="kayttooikeus : ${kayttooikeudet}">
+                <td>
+                    <a href="" th:href="@{~/ase/{id}(id=${kayttooikeus.numero})}" th:text="${kayttooikeus}" title="Mene tämän aseen sivulle">
+                        RK 62, 123456
+                    </a>
+                </td>
+                <td>
+                    <form method="post" action ="/kayttooikeus">
+                        <input type="hidden" name="ase" th:value="${kayttooikeus.numero}"/>
+                        <input type="hidden" name="hetu" th:value="${numero}"/>
+                        <button type="submit">Poista</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <form method ="post" action ="/kayttooikeus">
+            <input type="text" value="nimi" name="nimi"></input>
+            <input type="text" value="numero" name="numero"></input>
+            <button type="submit" title="Lisää varusmiehelle uusi käyttöoikeus">
+                Lisää käyttöoikeus
+            </button>
+        </form>
+        <form method ="post" th:action ="@{~/varusmies/poista/{id}(id=${numero})}" title="Poistaa varusmiehen kokonaan tietokannasta">
+            <button type ="submit">Poista varusmies</button>
+        </form>
+
+    </body>
+</html>

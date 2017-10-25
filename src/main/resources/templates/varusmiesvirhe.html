@@ -1,0 +1,51 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title th:text="${nimi}">Varusmies sivu</title>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <h1>Perustiedot</h1>
+        <table>
+            <tr>
+                <th>Nimi</th>
+                <th>Hetu</th>
+            </tr>
+            <tr>
+                <td>
+                    <a href="" th:href="" th:text="${nimi}">Tkm Järvinen</a>
+                </td>
+                <td th:text="${numero}">
+                    160800A4753
+                </td>
+            </tr>
+        </table>
+        <h1>Käyttöoikeudet</h1>
+        <table>
+            <tr th:each ="kayttooikeus : ${kayttooikeudet}">
+                <td>
+                    <a href="" th:href="@{~/{id}(id=${kayttooikeus.id})}" th:text="${kayttooikeus.ase}" title="Mene tämän aseen sivulle">
+                        RK 62, 123456
+                    </a>
+                </td>
+                <td>
+                    <a href="" th:href="@{~/kayttooikeus/{id}(id=${kayttooikeus.id})}" title="Poista tämän aseen käyttöoikeus">poista</a>
+                </td>
+            </tr>
+        </table>
+        Virhe: syöttämääsi asetta ei löydy tietokannasta
+        <form method ="post" action ="/kayttooikeus">
+            <input type="text" value="nimi"></input>
+            <input type="text" value="numero"</input>
+            <button type="submit" title="Lisää varusmiehelle uusi käyttöoikeus">
+                Lisää käyttöoikeus
+            </button>
+        </form>
+        <h1>Toiminnot</h1>
+        <form method ="post" th:action ="@{~/varusmies/poista/{id}(id=${numero})}" title="Poistaa varusmiehen kokonaan tietokannasta">
+            <button type ="submit">Poista varusmies</button>
+        </form>
+    </body>
+</html>

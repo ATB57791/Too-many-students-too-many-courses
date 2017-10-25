@@ -1,0 +1,24 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Varusmiehet</title>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <h1>Varusmiehet</h1>
+        <table>
+            <tr th:each="varusmies : ${varusmiehet}">
+                <td>
+                    <a href="" th:href="@{~/varusmies/{id}(id=${varusmies.id})}" th:text="${varusmies}">
+                        Tkm Järvinen, 160800A4753
+                    </a>
+                </td>
+            </tr>
+        </table>
+        <a href="/paasivu" title="Palaa takaisin pääsivulle">
+            Takaisin
+        </a>
+    </body>
+</html>
