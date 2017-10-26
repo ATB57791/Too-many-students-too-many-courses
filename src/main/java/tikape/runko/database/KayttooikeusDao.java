@@ -55,6 +55,17 @@ public class KayttooikeusDao implements Dao<Kayttooikeus, Integer> {
         
         return vm;
     }
+    
+
+    public List<Varusmies> aseeseenOikeutetut(Ase ase) throws SQLException {
+        List<Varusmies> varusmiehet = new ArrayList<>();
+        VarusmiesDao varusmiesDao = new VarusmiesDao(database);
+        for(Kayttooikeus oikeus: database.getKayttooikeudet()){
+            if(oikeus.getAseenNumero() == ase.getNumero())
+            varusmiehet.add(varusmiesDao.findOne(oikeus.getHetu()));
+        }
+        return varusmiehet;
+    }
 
     @Override
     public List<Kayttooikeus> findAll() throws SQLException {

@@ -9,13 +9,14 @@
     <body>
         <h1>Aseet</h1>
         <table>
-            <tr th:each="ase : ${aseet}">
-                <td>
-                    <a th:href="@{~/ase/{id}(id=${ase.numero})}" th:text="${ase}" title ="aseen sivu">
-                        RK 62, 123456
-                    </a>
-                </td>
-            </tr>
+            <ul>
+            <li th:each="ase : ${aseet}">
+                <a th:href="@{~/ase/{id}(id=${ase.numero})}">
+                    <span th:text="${ase.nimi}">Aseet</span>
+                    <span th:text="${ase.numero}">Aseet</span>
+                </a>
+            </li>
+        </ul>
         </table>
         <a href="/paasivu" title="Palaa takaisin pääsivulle">
             Takaisin
