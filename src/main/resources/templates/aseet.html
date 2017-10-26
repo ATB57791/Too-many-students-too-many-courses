@@ -4,20 +4,44 @@
     <head>
         <title>Aseet</title>
         <meta charset="utf-8" />
+        <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        </style>
     </head>
 
     <body>
         <h1>Aseet</h1>
+
         <table>
             <tr>
                 <th>Aseen nimi</th>
                 <th>Aseen numero</th>
             </tr>
-            <tr th:each="ase: $(aseet)">
-                <td th:text="$(ase.nimi)"> testi</td>
-            </tr>
 
+            <tr th:each="ase : ${aseet}">
+
+                <td th:text="${ase.nimi}" th:href="@{~/ase/{id}(id=${ase.numero})}">                
+                    Aseen nimi</a></td>
+
+                <td th:text="${ase.numero}">Aseen numero</td>
+
+            </tr>
         </table>
+
         <a href="/paasivu" title="Palaa takaisin pääsivulle">
             Takaisin
         </a>
