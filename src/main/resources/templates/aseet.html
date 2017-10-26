@@ -9,14 +9,14 @@
     <body>
         <h1>Aseet</h1>
         <table>
-            <ul>
-            <li th:each="ase : ${aseet}">
-                <a th:href="@{~/ase/{id}(id=${ase.numero})}">
-                    <span th:text="${ase.nimi}">Aseet</span>
-                    <span th:text="${ase.numero}">Aseet</span>
-                </a>
-            </li>
-        </ul>
+            <tr>
+                <th>Aseen nimi</th>
+                <th>Aseen numero</th>
+            </tr>
+            <tr th:each="ase: $(aseet)">
+                <td th:text="$(ase.nimi)"> testi</td>
+            </tr>
+
         </table>
         <a href="/paasivu" title="Palaa takaisin pääsivulle">
             Takaisin

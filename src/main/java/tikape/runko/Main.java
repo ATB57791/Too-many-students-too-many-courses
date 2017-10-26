@@ -1,7 +1,5 @@
 package tikape.runko;
 
-import tikape.*;
-
 import spark.*;
 import java.util.*;
 import spark.template.thymeleaf.*;
@@ -11,14 +9,14 @@ import tikape.runko.database.*;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        
+
         Database db = new Database("Aseluvat.db");
         Connection yhteys = db.getConnection();
-        
+
         AseDao aseDao = new AseDao(db);
         VarusmiesDao varusmiesDao = new VarusmiesDao(db);
         KayttooikeusDao kayttooikeusDao = new KayttooikeusDao(db);
-        
+
         List<Varusmies> varusmiehet = db.getVarusmiehet();
         List<Ase> aseet = db.getAseet();
 
@@ -74,8 +72,6 @@ public class Main {
             Map map = new HashMap();
             return new ModelAndView(map, "paasivu");
         }, new ThymeleafTemplateEngine());
-
-
 
         Spark.get("/haku", (req, res) -> {
             Map map = new HashMap();
