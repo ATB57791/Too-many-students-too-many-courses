@@ -8,7 +8,7 @@ public class Kayttooikeus {
     private int aseenNumero;
     private String hetu;
     
-    public Kayttooikeus(int numero, String hetu){
+    public Kayttooikeus(String hetu, int numero){
         this.aseenNumero=numero;
         this.hetu=hetu;
     }
