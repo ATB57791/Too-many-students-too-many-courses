@@ -7,31 +7,21 @@
     </head>
 
     <body>
-        <h1>Hae henkilön hetulla tai aseen numerolla</h1>
+        <h1>Hae varusmiestä varusmiehen hetulla</h1>
+        
 
-        <form method="POST" action="/lisaavarusmies">
+        <form method="POST" action="/varusmiehenHaku">
             <fieldset><legend>Etsi varusmiehen hetulla</legend>
 
                 Varusmiehen hetu:
                 <br></br>
-                <input type="text" name="varusmiehenHetu"></input>
+                <input type="text" name="varusmiehenHetu" required="yes"></input>
                 <br></br>
                 <input type="submit" value="Etsi"></input>
 
             </fieldset>
         </form>
-                        <form method="POST" action="/lisaavarusmies">
-            <fieldset><legend>Etsi ase aseen numerolla</legend>
 
-                Aseen numero:
-                <br></br>
-                <input type="text" name="aseenNumero"></input>
-                <br></br>
-                <input type="submit" value="Etsi"></input>
-
-            </fieldset>
-        </form>
-        
         <a href="/paasivu" title="Palaa takaisin paasivulle">
             Takaisin
         </a>

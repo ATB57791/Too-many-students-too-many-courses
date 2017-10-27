@@ -1,0 +1,30 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Etsinta</title>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <h1>Hae asetta aseen numerolla</h1>
+
+
+        <form method="POST" action="/aseenHaku">
+            <fieldset><legend>Etsi ase aseen numerolla</legend>
+
+                Aseen numero:
+                <br></br>
+                <input type="number" name="aseenNumero" required="yes"></input>
+                <br></br>
+                <input type="submit" value="Etsi"></input>
+
+            </fieldset>
+        </form>
+
+        <a href="/paasivu" title="Palaa takaisin paasivulle">
+            Takaisin
+        </a>
+    </body>
+
+</html>

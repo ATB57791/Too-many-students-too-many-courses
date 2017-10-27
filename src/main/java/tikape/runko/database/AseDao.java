@@ -61,7 +61,7 @@ public class AseDao implements Dao<Ase, Integer> {
         Ase o;
         try (Connection connection = database.getConnection(); 
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Ase WHERE aseenNumero = ?")) {
-            stmt.setObject(1, key);
+            stmt.setInt(1, key);
             try (ResultSet rs = stmt.executeQuery()) {
                 boolean hasOne = rs.next();
                 if (!hasOne) {

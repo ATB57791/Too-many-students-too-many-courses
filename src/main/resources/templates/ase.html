@@ -17,7 +17,7 @@
                 <td th:text="${ase.numero}">Aseen numero</td>
             </tr>
         </table>
-        <h2>Henkilöt, joilla on oikeus aseeseen</h2>
+        <h2>Luvalliset</h2>
         <ol>
             <li th:each="varusmies : ${oikeudelliset}">
                 <span th:text="${varusmies.nimi}"> nimi</span>
