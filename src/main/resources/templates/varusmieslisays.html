@@ -2,26 +2,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Aseen lisays</title>
+        <title>Varusmiehen lisäys</title>
         <meta charset="utf-8" />
     </head>
 
     <body>
-        <form method="POST" action="/haku">
-            <fieldset><legend>Lisaa ase</legend>
+        <form method="POST" action="/varusmieslisays">
+            <fieldset><legend>Lisaa varusmies</legend>
 
-                Aseen nimi:
+                Varusmiehen nimi:
                 <br></br>
-                <input type="text" name="aseenNimi"></input>
+                <input type="text" name="varusmiehenNimi"></input>
                 <br></br>
-                Aseen numero:
+                Varusmiehen hetu:
                 <br></br>
-                <input type="text" name="aseenNumero"></input>
+                <input type="text" name="VarusmihenHetu"></input>
                 <br></br>
                 <input type="submit" value="Lisaa"></input>
 
             </fieldset>
         </form>
+        
         <a href="/paasivu" title="Palaa takaisin paasivulle">
             Takaisin
         </a>

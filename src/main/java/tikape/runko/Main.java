@@ -82,23 +82,24 @@ public class Main {
             return new ModelAndView(map, "varusmiehenHaku");
         }, new ThymeleafTemplateEngine());
 
-        Spark.get("/aselisays", (req, res) -> {
+        Spark.get("/lisaaAse", (req, res) -> {
             Map map = new HashMap();
-            return new ModelAndView(map, "lisaaase");
+            return new ModelAndView(map, "lisaaAse");
         }, new ThymeleafTemplateEngine());
 
-        Spark.post("/aselisays", (req, res) -> {
+        Spark.post("/lisaaAse", (req, res) -> {
 
             String aseenNimi = req.queryParams("aseenNimi");
             String aseenNumero = req.queryParams("aseenNumero");
-            Ase ase = new Ase(aseenNimi, Integer.parseInt("aseenNumero"));
-            //aseDao.saveOrUpdate(new Ase(aseenNimi, Integer.parseInt(aseenNumero)));
+            System.out.println(aseenNimi + aseenNumero);
+            Ase ase = new Ase(aseenNimi, Integer.parseInt(aseenNumero));
+            aseDao.saveOrUpdate(new Ase(aseenNimi, Integer.parseInt(aseenNumero)));
 
             Map map = new HashMap();
-            return new ModelAndView(map, "lisaaase_ok");
+            return new ModelAndView(map, "lisaaAse_ok");
 
         }, new ThymeleafTemplateEngine());
-
+        
         Spark.post("/varusmiehenHaku", (Request req, Response res) -> {// hakuominaisuus aseelle tai varusmiehelle
             Map map = new HashMap();
             String varusmiehenHetu = req.queryParams("varusmiehenHetu");
@@ -124,7 +125,6 @@ public class Main {
         
             map.put("oikeudelliset", kayttooikeusDao.AseeseenOikeutetut(Integer.parseInt(aseenNumero)));
             Ase ase = aseDao.findOne(Integer.parseInt(aseenNumero));
-            System.out.println(aseenNumero);
             map.put("ase", ase);
 
             if (ase == null) {
@@ -136,15 +136,19 @@ public class Main {
 
             }
         }, new ThymeleafTemplateEngine());
-
-        Spark.post("/varusmieslisays", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
-            Varusmies lisattava = new Varusmies(req.queryParams("nimi"), req.queryParams("hetu"));
-            Map map = new HashMap();
-            return new ModelAndView(map, "lisaavarusmies_ok");
-        }, new ThymeleafTemplateEngine());
+        
         Spark.get("/varusmieslisays", (req, res) -> {
             Map map = new HashMap();
-            return new ModelAndView(map, "lisaavarusmies");
+            return new ModelAndView(map, "varusmieslisays");
         }, new ThymeleafTemplateEngine());
+        
+        Spark.post("/varusmieslisays", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
+            Varusmies lisattava = new Varusmies(req.queryParams("nimi"), req.queryParams("hetu"));
+            varusmiesDao.saveOrUpdate(lisattava);
+            Map map = new HashMap();
+            return new ModelAndView(map, "varusmieslisays_ok");
+        }, new ThymeleafTemplateEngine());
+        
+
     }
 }
