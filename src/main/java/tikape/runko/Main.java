@@ -143,7 +143,7 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         Spark.post("/varusmieslisays", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
-            Varusmies lisattava = new Varusmies(req.queryParams("nimi"), req.queryParams("hetu"));
+            Varusmies lisattava = new Varusmies(req.queryParams("varusmiehenNimi"), req.queryParams("varusmihenHetu"));
             varusmiesDao.saveOrUpdate(lisattava);
             Map map = new HashMap();
             return new ModelAndView(map, "varusmieslisays_ok");
