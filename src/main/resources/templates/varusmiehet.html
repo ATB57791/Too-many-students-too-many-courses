@@ -30,8 +30,8 @@
             </tr>
             <tr th:each="varusmies : ${varusmiehet}">
                 <td th:text="${varusmies.nimi}"></td>
-                
-                <td> <a th:href="@{~/varusmiehet/{id}{id=${varusmies.hetu}}}" th:text="${varusmies.hetu}"> </a>
+                <td>
+                    <a th:text="${varusmies.hetu}" th:href="@{~/varusmiehet/{id}(id=${varusmies.hetu})}"></a>
                 </td>
             </tr>
         </table>
