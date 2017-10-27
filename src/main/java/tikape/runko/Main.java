@@ -32,7 +32,7 @@ public class Main {
 
         Spark.post("/aseet/:id", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
 
-            HashMap map = new HashMap<>();
+            HashMap map = new HashMap();
             List<Varusmies> varusmiehet = varusmiesDao.findAll();
             Integer aseId = Integer.parseInt(req.params(":id"));
             map.put("ase", aseDao.findOne(aseId));

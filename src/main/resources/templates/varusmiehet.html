@@ -30,7 +30,9 @@
             </tr>
             <tr th:each="varusmies : ${varusmiehet}">
                 <td th:text="${varusmies.nimi}"></td>
-                <td th:text="${varusmies.hetu}"></td>
+                
+                <td> <a th:href="@{~/varusmiehet/{id}{id=${varusmies.hetu}}}" th:text="${varusmies.hetu}"> </a>
+                </td>
             </tr>
         </table>
         <a href="/paasivu" title="Palaa takaisin pääsivulle">
