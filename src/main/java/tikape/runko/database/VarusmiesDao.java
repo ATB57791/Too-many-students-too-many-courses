@@ -22,10 +22,10 @@ public class VarusmiesDao implements Dao<Varusmies, Integer> {
     }
 
     
-    public Varusmies findOne(String key) throws SQLException {
+    public Varusmies findOne(String hetu) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Varusmies WHERE hetu = ?");
-        stmt.setObject(1, key);
+        stmt.setString(1, hetu);
 
         ResultSet rs = stmt.executeQuery();
         boolean hasOne = rs.next();
@@ -69,7 +69,7 @@ public class VarusmiesDao implements Dao<Varusmies, Integer> {
     }
 
     @Override
-    public void delete(Integer key) throws SQLException {
+    public void delete(Integer hetu) throws SQLException {
         // ei toteutettu
     }
 
@@ -79,7 +79,7 @@ public class VarusmiesDao implements Dao<Varusmies, Integer> {
     }
 
     @Override
-    public Varusmies findOne(Integer key) throws SQLException {
+    public Varusmies findOne(Integer hetu) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

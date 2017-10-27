@@ -10,7 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import static javassist.CtMethod.ConstParameter.integer;
 import tikape.runko.*;
 
 /**
@@ -18,55 +21,69 @@ import tikape.runko.*;
  * @author jessicakoski
  */
 public class KayttooikeusDao implements Dao<Kayttooikeus, Integer> {
+
     private Database database;
-    
-    public KayttooikeusDao(Database database){
-        this.database=database;
+
+    public KayttooikeusDao(Database database) {
+        this.database = database;
     }
 
-    
-    public List<Varusmies> findKo(Integer key) throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Kayttooikeus WHERE ase_aseenNumero = ?");
-        stmt.setObject(1, key);
-
-        ResultSet rs = stmt.executeQuery();
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
-        }
-        
+    public List<Varusmies> findKo(Ase ase) throws SQLException {
         List<Varusmies> vm = new ArrayList<>();
-        
-        while (rs.next()) {
-            Varusmies varusmies = (Varusmies) rs.getObject("varusmies_hetu");
-            
-            vm.add(varusmies);
+
+        try (Connection conn = database.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT Varusmies.nimi, Varusmies.hetu FROM Kayttooikeus INNER JOIN Varusmies ON varusmies.hetu = Kayttooikeus.varusmies_hetu WHERE Kayttooikeus.ase_aseenNumero = ?;")) {
+            stmt.setInt(1, ase.getNumero());
+            try (ResultSet result = stmt.executeQuery()) {
+                while (result.next()) {
+                    vm.add(new Varusmies(result.getString("nimi"), result.getString("hetu")));
+                }
+                return vm;
+
+            }
         }
-        
+    }
+
+    public Map<String, ArrayList> pala(int a) throws SQLException {
+        Map<String, ArrayList> map = new HashMap<>();
+        ArrayList<String> s = new ArrayList<>();
+        ArrayList<Varusmies> vm = new ArrayList<>();
+    
+    
+        try (Connection conn = database.getConnection(); PreparedStatement statement = conn.prepareStatement(
+                "SELECT nimi, hetu, aseTyyppi FROM Kayttooikeus INNER JOIN Varusmies ON hetu = varusmies_hetu INNER JOIN Ase ON aseenNumero = ase_aseenNumero WHERE ase_aseenNumero =?;")) {
+            statement.setInt(1, a);
+            try (ResultSet rs = statement.executeQuery();) {
+                s.add(rs.getString("aseTyyppi"));
+                map.put("1", s);
+                while (rs.next()) {
+                    vm.add(new Varusmies(rs.getString("nimi"), rs.getString("hetu")));
+                }
+
+            }
+        }
+
+        map.put("2", vm);
+        return map;
+    }
+
 //        Ase ase = (Ase) rs.getObject("kurssi");
 //        Varusmies varusmies = (Varusmies) rs.getObject("varusmies");
 //        
 //        Kayttooikeus ks = new Kayttooikeus(ase.getAsenumero(), varusmies.getHetu());
-        
-        rs.close();
-        stmt.close();
-        connection.close();
-        
-        return vm;
-    }
-    
-
+    /*
     public List<Varusmies> aseeseenOikeutetut(Ase ase) throws SQLException {
+        
         List<Varusmies> varusmiehet = new ArrayList<>();
+        List<Kayttooikeus> oikeudet = database.getKayttooikeudet();
         VarusmiesDao varusmiesDao = new VarusmiesDao(database);
-        for(Kayttooikeus oikeus: database.getKayttooikeudet()){
-            if(oikeus.getAseenNumero() == ase.getNumero())
+        
+        for(Kayttooikeus oikeus: oikeudet){
+            if(Integer.parseInt(oikeus.getAseenNumero()) == ase.getNumero() and varusmiehet.contains())
             varusmiehet.add(varusmiesDao.findOne(oikeus.getHetu()));
         }
         return varusmiehet;
-    }
-
+   
+     */
     @Override
     public List<Kayttooikeus> findAll() throws SQLException {
         return database.getKayttooikeudet();

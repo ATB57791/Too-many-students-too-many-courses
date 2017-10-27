@@ -1,3 +1,4 @@
+
 package tikape.runko.database;
 
 import java.sql.*;
@@ -95,7 +96,7 @@ public class Database {
     
     public List<Ase> getAseet() throws SQLException {
         return queryAndCollect("SELECT * FROM Ase;", rs -> {
-            return new Ase(rs.getString("Asetyyppi"), rs.getString("aseenNumero"));
+            return new Ase(rs.getString("Asetyyppi"), rs.getInt("aseenNumero"));
         });
     }
     

@@ -1,4 +1,3 @@
-
 package tikape.runko.database;
 
 import java.sql.Connection;
@@ -8,11 +7,12 @@ import java.sql.SQLException;
 import java.util.List;
 import tikape.runko.*;
 
-public class AseDao implements Dao<Ase, Integer>{
+public class AseDao implements Dao<Ase, Integer> {
+
     private Database database;
-    
-    public AseDao(Database database){
-        this.database=database;
+
+    public AseDao(Database database) {
+        this.database = database;
     }
 
     @Override
@@ -32,26 +32,25 @@ public class AseDao implements Dao<Ase, Integer>{
 
     @Override
     public Ase findOne(Integer key) throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Ase WHERE aseenNumero = ?");
-        stmt.setObject(1, key);
-
-        ResultSet rs = stmt.executeQuery();
-        boolean hasOne = rs.next();
-        if (!hasOne) {
+        Ase o;
+        try (Connection connection = database.getConnection(); PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Ase WHERE aseenNumero = ?")) {
+            stmt.setObject(1, key);
+            try (ResultSet rs = stmt.executeQuery()) {
+                boolean hasOne = rs.next();
+                if (!hasOne) {
+                    return null;
+                }
+                Integer id = rs.getInt("aseenNumero");
+                String nimi = rs.getString("Asetyyppi");
+                o = new Ase(nimi, id);
+                return o;
+            } catch (SQLException e) {
+                return null;
+            }
+        } catch (SQLException e) {
             return null;
         }
 
-        Integer id = rs.getInt("aseenNumero");
-        String nimi = rs.getString("Asetyyppi");
-
-        Ase o = new Ase(nimi, id.toString());
-
-        rs.close();
-        stmt.close();
-        connection.close();
-
-        return o;
     }
-    
+
 }
