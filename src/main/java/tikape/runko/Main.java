@@ -72,12 +72,16 @@ public class Main {
             Map map = new HashMap();
             return new ModelAndView(map, "etsinta");
         }, new ThymeleafTemplateEngine());
+        
+        
         Spark.get("/aselisays", (req, res) -> {
             Map map = new HashMap();
             return new ModelAndView(map, "lisaaase");
         }, new ThymeleafTemplateEngine());
+        
+        
         Spark.post("/aselisays", (req, res) -> {
-            Ase lisattava = new Ase(req.queryParams("nimi"), Integer.parseInt(req.queryParams("numero")));
+            Ase lisattava = new Ase(req.queryParams("aeeenNimi"), Integer.parseInt(req.queryParams("aseenNumero")));
             Map map = new HashMap();
             return new ModelAndView(map, "lisaaase_ok");
         }, new ThymeleafTemplateEngine());

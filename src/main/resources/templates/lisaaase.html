@@ -2,18 +2,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Aseen lisäys</title>
+        <title>Aseen lisays</title>
         <meta charset="utf-8" />
     </head>
 
     <body>
-        <h1>Aseen lisäys</h1>
-         <form method="POST" action="/aselisays">
-            <input type="text" name="nimi" value="nimi"/>
-            <input type="text" name="numero" value="numero"/>
-            <input type="submit" value="lisaa ase" title="lisää aseen tietokantaan"/>
+        <form method="POST" action="/aselisays">
+            <fieldset><legend>Lisaa ase</legend>
+
+                Aseen nimi:
+                <br></br>
+                <input type="text" name="aseenNimi"></input>
+                <br></br>
+                Aseen numero:
+                <br></br>
+                <input type="text" name="aseenNumero"></input>
+                <br></br>
+                <input type="submit" value="Lisaa"></input>
+
+            </fieldset>
         </form>
-        <a href="/paasivu" title="Palaa takaisin pääsivulle">
+        <a href="/paasivu" title="Palaa takaisin paasivulle">
             Takaisin
         </a>
     </body>
