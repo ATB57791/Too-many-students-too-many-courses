@@ -2,29 +2,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Etsintä</title>
+        <title>Etsinta</title>
         <meta charset="utf-8" />
     </head>
 
     <body>
         <h1>Hae henkilön hetulla tai aseen numerolla</h1>
 
-        <table>
-            <tr th:each="tulos : ${tulokset}">
-                <td>
-                    <a href="" th:href="@{~/{id}(id=${tulos.id})}" th:text="${tulos}">
-                        löydetty varusmies tai ase
-                    </a>
-                </td>
-            </tr>
-        </table>
+        <form method="POST" action="/lisaavarusmies">
+            <fieldset><legend>Etsi varusmiehen hetulla</legend>
 
-        <form method="POST" action="/haku">
-            <input type="text" name="hakusana" value="hakusana"/>
-            <input type="submit" value="hae" title="Hae tietokannasta varusmiehiä tai aseita"/>
+                Varusmiehen hetu:
+                <br></br>
+                <input type="text" name="varusmiehenHetu"></input>
+                <br></br>
+                <input type="submit" value="Etsi"></input>
+
+            </fieldset>
         </form>
-        <a href="/paasivu" title="Palaa takaisin pääsivulle">
+                        <form method="POST" action="/lisaavarusmies">
+            <fieldset><legend>Etsi ase aseen numerolla</legend>
+
+                Aseen numero:
+                <br></br>
+                <input type="text" name="aseenNumero"></input>
+                <br></br>
+                <input type="submit" value="Etsi"></input>
+
+            </fieldset>
+        </form>
+        
+        <a href="/paasivu" title="Palaa takaisin paasivulle">
             Takaisin
-        </a>   
+        </a>
     </body>
+
 </html>

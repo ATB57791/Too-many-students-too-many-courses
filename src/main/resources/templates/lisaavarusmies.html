@@ -7,13 +7,23 @@
     </head>
 
     <body>
-        <h1>Varusmiehen lisäys</h1>
-        <form method="POST" action="/varusmieslisays">
-            <input type="text" name="nimi" value="nimi"/>
-            <input type="text" name="numero" value="hetu"/>
-            <input type="submit" value="lisaa varusmies" title="lisää varusmiehen tietokantaan"/>
+        <form method="POST" action="/lisaavarusmies">
+            <fieldset><legend>Lisaa varusmies/legend>
+
+                Varusmiehen nimi:
+                <br></br>
+                <input type="text" name="varusmiehenNimi"></input>
+                <br></br>
+                Varusmiehen hetu:
+                <br></br>
+                <input type="text" name="VarusmihenHetu"></input>
+                <br></br>
+                <input type="submit" value="Lisaa"></input>
+
+            </fieldset>
         </form>
-        <a href="/paasivu" title="Palaa takaisin pääsivulle">
+        
+        <a href="/paasivu" title="Palaa takaisin paasivulle">
             Takaisin
         </a>
     </body>

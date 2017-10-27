@@ -33,10 +33,11 @@ public class VarusmiesDao implements Dao<Varusmies, Integer> {
                     String id = rs.getString("hetu");
                     String nimi = rs.getString("nimi");
                     o = new Varusmies(nimi, id);
+                    return o;
                 }
             }
         }
-        return o;
+        
     }
 
     @Override
