@@ -87,9 +87,11 @@ public class Main {
 
         Spark.post("/aselisays", (req, res) -> {
             AseDao aseDao = new AseDao(db);
+            
             String aseenNimi = req.queryParams("aseenNimi");
             String aseenNumero = req.queryParams("aseenNumero");
-
+            //aseDao.saveOrUpdate(new Ase(aseenNimi, Integer.parseInt(aseenNumero)));
+            
             Map map = new HashMap();
             return new ModelAndView(map, "lisaaase_ok");
         }, new ThymeleafTemplateEngine());
