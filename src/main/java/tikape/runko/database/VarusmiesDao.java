@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.*;
 
-public class VarusmiesDao implements Dao<Varusmies, Integer> {
+public class VarusmiesDao implements Dao<Varusmies, String> {
 
     private Database database;
 
@@ -21,6 +21,7 @@ public class VarusmiesDao implements Dao<Varusmies, Integer> {
         this.database = database;
     }
 
+    @Override
     public Varusmies findOne(String hetu) throws SQLException {
         Varusmies o;
         try (Connection connection = database.getConnection(); PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Varusmies WHERE hetu = ?")) {
@@ -55,18 +56,27 @@ public class VarusmiesDao implements Dao<Varusmies, Integer> {
     }
 
     @Override
-    public void delete(Integer hetu) throws SQLException {
-        // ei toteutettu
+    public void delete(String hetu) throws SQLException {
+        String query="DELETE FROM Varusmies WHERE hetu=?";
+        Connection conn = database.getConnection();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, hetu);
+            stmt.executeUpdate();
+            stmt.close();
+        }
     }
 
     @Override
     public Varusmies saveOrUpdate(Varusmies object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Varusmies findOne(Integer hetu) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "INSERT INTO Varusmies (hetu, nimi) VALUES (?, ?)";
+        Connection conn = database.getConnection();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, object.getHetu());
+            stmt.setString(2, object.getNimi());
+            stmt.executeUpdate();
+            stmt.close();
+        }
+        return object;
     }
 
 }
