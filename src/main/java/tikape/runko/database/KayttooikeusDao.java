@@ -102,7 +102,7 @@ public class KayttooikeusDao implements Dao<Kayttooikeus, Integer> {
         String query = "SELECT * FROM Kayttooikeus;";
         try (Connection conn = database.getConnection(); PreparedStatement statement = conn.prepareStatement(query); ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
-                oikeudet.add(new Kayttooikeus(rs.getString("varusmies_hetu"), rs.getString("ase_aseenNumero")));
+                oikeudet.add(new Kayttooikeus(rs.getInt("ase_aseenNumero"), rs.getString("varusmies_hetu")));
             }
 
         }
@@ -113,10 +113,30 @@ public class KayttooikeusDao implements Dao<Kayttooikeus, Integer> {
     public void delete(Integer key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public void delete(Integer aseenNumero, String hetu) throws SQLException {
+        String query = "DELETE FROM Kayttooikeus WHERE varusmies_hetu=? AND ase_aseenNumero=?";
+        Connection conn = database.getConnection();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, hetu);
+            stmt.setInt(2, aseenNumero);
+            stmt.executeUpdate();
+            stmt.close();
+        }
+    }
 
     @Override
     public Kayttooikeus saveOrUpdate(Kayttooikeus object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        delete(object.getAseenNumero(), object.getHetu());
+        String query = "INSERT INTO Kayttooikeus (varusmies_hetu, ase_aseenNumero) VALUES (?, ?)";
+        Connection conn = database.getConnection();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, object.getHetu());
+            stmt.setInt(2, object.getAseenNumero());
+            stmt.executeUpdate();
+            stmt.close();
+        }
+        return object;
     }
 
     @Override

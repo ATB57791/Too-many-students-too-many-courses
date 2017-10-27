@@ -19,30 +19,48 @@ public class AseDao implements Dao<Ase, Integer> {
     @Override
     public List<Ase> findAll() throws SQLException {
         ArrayList<Ase> aseet = new ArrayList<>();
-        String query = "SELECT * FROM Ase;";
-        try (Connection conn = database.getConnection(); PreparedStatement statement = conn.prepareStatement(query); ResultSet rs = statement.executeQuery()) {
+        String query = "SELECT * FROM Ase";
+        Connection conn = database.getConnection();
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 aseet.add(new Ase(rs.getString("aseTyyppi"), Integer.parseInt(rs.getString("aseenNumero"))));
             }
-
+            statement.close();
         }
         return aseet;
     }
 
     @Override
     public void delete(Integer key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "DELETE FROM Ase WHERE aseenNumero=?";
+        Connection conn = database.getConnection();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, key);
+            stmt.executeUpdate();
+            stmt.close();
+        }
     }
 
     @Override
     public Ase saveOrUpdate(Ase object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        delete(object.getNumero());
+        String query = "INSERT INTO Ase (aseenNumero, Asetyyppi) VALUES (?, ?)";
+        Connection conn = database.getConnection();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, object.getNumero());
+            stmt.setString(2, object.getNimi());
+            stmt.executeUpdate();
+            stmt.close();
+        }
+        return object;
     }
 
     @Override
     public Ase findOne(Integer key) throws SQLException {
         Ase o;
-        try (Connection connection = database.getConnection(); PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Ase WHERE aseenNumero = ?")) {
+        try (Connection connection = database.getConnection(); 
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Ase WHERE aseenNumero = ?")) {
             stmt.setObject(1, key);
             try (ResultSet rs = stmt.executeQuery()) {
                 boolean hasOne = rs.next();
