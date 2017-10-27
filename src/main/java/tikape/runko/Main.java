@@ -10,14 +10,15 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        Database db = new Database("jdbc:Aseluvat.db");
+        Database db = new Database("jdbc:sqlite:Aseluvat.db");
+        
         
         AseDao aseDao = new AseDao(db);
         VarusmiesDao varusmiesDao = new VarusmiesDao(db);
         KayttooikeusDao kayttooikeusDao = new KayttooikeusDao(db);
 
-        List<Varusmies> varusmiehet = db.getVarusmiehet();
-        List<Ase> aseet = db.getAseet();
+        List<Varusmies> varusmiehet = varusmiesDao.findAll();
+        List<Ase> aseet = aseDao.findAll();
 
         int a1 = 615667;
                     Map m1 = kayttooikeusDao.pala(a1);

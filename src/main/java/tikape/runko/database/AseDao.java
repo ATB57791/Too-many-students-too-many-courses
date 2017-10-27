@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.*;
 
@@ -17,7 +18,15 @@ public class AseDao implements Dao<Ase, Integer> {
 
     @Override
     public List<Ase> findAll() throws SQLException {
-        return database.getAseet();
+        ArrayList<Ase> aseet = new ArrayList<>();
+        String query = "SELECT * FROM Ase;";
+        try (Connection conn = database.getConnection(); PreparedStatement statement = conn.prepareStatement(query); ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                aseet.add(new Ase(rs.getString("aseTyyppi"), Integer.parseInt(rs.getString("aseenNumero"))));
+            }
+
+        }
+        return aseet;
     }
 
     @Override
@@ -43,14 +52,14 @@ public class AseDao implements Dao<Ase, Integer> {
                 Integer id = rs.getInt("aseenNumero");
                 String nimi = rs.getString("Asetyyppi");
                 o = new Ase(nimi, id);
-                return o;
+
             } catch (SQLException e) {
                 return null;
             }
         } catch (SQLException e) {
             return null;
         }
-
+        return o;
     }
 
 }

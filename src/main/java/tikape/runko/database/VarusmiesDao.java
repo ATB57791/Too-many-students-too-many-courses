@@ -48,24 +48,16 @@ public class VarusmiesDao implements Dao<Varusmies, Integer> {
     @Override
     public List<Varusmies> findAll() throws SQLException {
 
-//        Connection connection = database.getConnection();
-//        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Varusmies");
-//
-//        ResultSet rs = stmt.executeQuery();
-//        List<Varusmies> varusmiehet = new ArrayList<>();
-//        while (rs.next()) {
-//            String id = rs.getString("hetu");
-//            String nimi = rs.getString("nimi");
-//
-//            varusmiehet.add(new Varusmies(nimi, id));
-//        }
-//
-//        rs.close();
-//        stmt.close();
-//        connection.close();
-//
-//        return varusmiehet;
-        return database.getVarusmiehet();
+        ArrayList<Varusmies> varusmiehet = new ArrayList<>();
+        String query = "SELECT * FROM Varusmies;";
+        try (Connection conn = database.getConnection(); PreparedStatement statement = conn.prepareStatement(query); ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                varusmiehet.add(new Varusmies(rs.getString("nimi"), rs.getString("hetu")));
+            }
+
+        }
+        return varusmiehet;
+   
     }
 
     @Override

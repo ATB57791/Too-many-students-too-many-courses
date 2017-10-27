@@ -86,7 +86,16 @@ public class KayttooikeusDao implements Dao<Kayttooikeus, Integer> {
      */
     @Override
     public List<Kayttooikeus> findAll() throws SQLException {
-        return database.getKayttooikeudet();
+      
+        ArrayList<Kayttooikeus> oikeudet = new ArrayList<>();
+        String query = "SELECT * FROM Kayttooikeus;";
+        try (Connection conn = database.getConnection(); PreparedStatement statement = conn.prepareStatement(query); ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                oikeudet.add(new Kayttooikeus(rs.getString("varusmies_hetu"), rs.getString("ase_aseenNumero")));
+            }
+
+        }
+        return oikeudet;
     }
 
     @Override
