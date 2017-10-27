@@ -15,11 +15,7 @@ public class Main {
         AseDao aseDao = new AseDao(db);
         VarusmiesDao varusmiesDao = new VarusmiesDao(db);
         KayttooikeusDao kayttooikeusDao = new KayttooikeusDao(db);
-
-        List<Varusmies> varusmiehet = varusmiesDao.findAll();
-        List<Ase> aseet = aseDao.findAll();
-
-
+        
         Spark.get("/aseet/:id", (req, res) -> { // ase-sivu
             int a = Integer.parseInt(req.params(":id"));
             Ase ase = aseDao.findOne(a);
@@ -35,6 +31,7 @@ public class Main {
 
         Spark.post("/aseet/:id", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
             HashMap map = new HashMap<>();
+            List<Varusmies> varusmiehet = varusmiesDao.findAll();
             Integer aseId = Integer.parseInt(req.params(":id"));
             map.put("ase", aseDao.findOne(aseId));
             map.put("varusmiehet", varusmiehet);
@@ -43,6 +40,7 @@ public class Main {
         });
         Spark.get("/aseet", (req, res) -> {
             HashMap map = new HashMap<>();
+            List<Ase> aseet = aseDao.findAll();
             map.put("aseet", aseet);
             return new ModelAndView(map, "aseet");
         }, new ThymeleafTemplateEngine());
@@ -59,6 +57,7 @@ public class Main {
 
         Spark.get("/varusmiehet", (req, res) -> {
             Map map = new HashMap();
+            List<Varusmies> varusmiehet = varusmiesDao.findAll();
             map.put("varusmiehet", varusmiehet);
             return new ModelAndView(map, "varusmiehet");
         }, new ThymeleafTemplateEngine());
@@ -88,6 +87,7 @@ public class Main {
         Spark.post("/haku", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
             String hakutermi = req.queryParams("hakusana");
             Map map = new HashMap();
+            List<Varusmies> varusmiehet = varusmiesDao.findAll();
             map.put("tulokset", varusmiehet);
             return new ModelAndView(map, "etsinta");
         }, new ThymeleafTemplateEngine());
