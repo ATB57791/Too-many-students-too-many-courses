@@ -16,10 +16,6 @@ public class Main {
         VarusmiesDao varusmiesDao = new VarusmiesDao(db);
         KayttooikeusDao kayttooikeusDao = new KayttooikeusDao(db);
 
-        Varusmies vm1 = varusmiesDao.findOne("1");
-        Ase ase1 = aseDao.findOne(Integer.parseInt("1"));
-        Varusmies vm2 = varusmiesDao.findOne("3");
-        Ase ase2 = aseDao.findOne(Integer.parseInt("4"));
 
         Spark.get("/aseet/:id", (req, res) -> { // ase-sivu
             int a = Integer.parseInt(req.params(":id"));
@@ -39,10 +35,9 @@ public class Main {
 
             String varusmiehenHetu = req.queryParams("varusmiehenHetu");
             String aseenNumero = req.params(":id");
-            System.out.println(varusmiehenHetu + aseenNumero);
             Varusmies vm = varusmiesDao.findOne(varusmiehenHetu);
             Ase ase = aseDao.findOne(Integer.parseInt(aseenNumero));
-
+            
             if (vm != null && ase != null) {
                 Kayttooikeus ko = new Kayttooikeus(vm.getHetu(), ase.getNumero());
                 kayttooikeusDao.saveOrUpdate(ko);
@@ -52,6 +47,24 @@ public class Main {
 
             return "";
         });
+                Spark.post("/aseet/:id", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
+
+            String varusmiehenHetu = req.queryParams("varusmiehenHetu");
+            String aseenNumero = req.params(":id");
+            Varusmies vm = varusmiesDao.findOne(varusmiehenHetu);
+            Ase ase = aseDao.findOne(Integer.parseInt(aseenNumero));
+            
+            if (vm != null && ase != null) {
+                Kayttooikeus ko = new Kayttooikeus(vm.getHetu(), ase.getNumero());
+                kayttooikeusDao.saveOrUpdate(ko);
+            }
+
+            res.redirect("/aseet/" + aseenNumero);
+
+            return "";
+        });
+        
+
 
         Spark.get("/aseet", (req, res) -> {
 
@@ -60,6 +73,23 @@ public class Main {
             map.put("aseet", aseet);
             return new ModelAndView(map, "aseet");
         }, new ThymeleafTemplateEngine());
+        
+         Spark.post("/varusmiehet/:id", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
+
+            String varusmiehenHetu = req.params(":id");
+            String aseenNumero = req.queryParams("aseenNumero");
+            Ase ase = aseDao.findOne(Integer.parseInt(aseenNumero));
+            Varusmies vm = varusmiesDao.findOne(varusmiehenHetu);
+
+            if (vm != null && ase != null) {
+                Kayttooikeus ko = new Kayttooikeus(vm.getHetu(), ase.getNumero());
+                kayttooikeusDao.saveOrUpdate(ko);
+            }
+
+            res.redirect("/varusmiehet/" + varusmiehenHetu);
+
+            return "";
+        });
 
         Spark.get("/varusmiehet/:id", (req, res) -> {
 

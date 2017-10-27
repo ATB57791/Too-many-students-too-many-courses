@@ -31,6 +31,14 @@
                 </a>
             </li>
         </ol>
+        <form method="post" th:action="@{~/varusmiehet/{id}(id=${varusmies.hetu})}">
+            <fieldset> <legend>Lisaa oikeus aseeseen</legend>
+                Anna aseen numero
+                <br></br>
+                <input type="number" required="yes" name="aseenNumero"></input>
+                <input type="submit" value="lisaa"></input>
+            </fieldset>
+        </form>
         <a href="/paasivu" title="Palaa takaisin pääsivulle">
             Takaisin
         </a>
