@@ -68,6 +68,7 @@ public class VarusmiesDao implements Dao<Varusmies, String> {
 
     @Override
     public Varusmies saveOrUpdate(Varusmies object) throws SQLException {
+        delete(object.getHetu());
         String query = "INSERT INTO Varusmies (hetu, nimi) VALUES (?, ?)";
         Connection conn = database.getConnection();
         try (PreparedStatement stmt = conn.prepareStatement(query)) {

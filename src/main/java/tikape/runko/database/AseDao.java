@@ -44,6 +44,7 @@ public class AseDao implements Dao<Ase, Integer> {
 
     @Override
     public Ase saveOrUpdate(Ase object) throws SQLException {
+        delete(object.getNumero());
         String query = "INSERT INTO Ase (aseenNumero, Asetyyppi) VALUES (?, ?)";
         Connection conn = database.getConnection();
         try (PreparedStatement stmt = conn.prepareStatement(query)) {

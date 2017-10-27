@@ -127,6 +127,7 @@ public class KayttooikeusDao implements Dao<Kayttooikeus, Integer> {
 
     @Override
     public Kayttooikeus saveOrUpdate(Kayttooikeus object) throws SQLException {
+        delete(object.getAseenNumero(), object.getHetu());
         String query = "INSERT INTO Kayttooikeus (varusmies_hetu, ase_aseenNumero) VALUES (?, ?)";
         Connection conn = database.getConnection();
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
