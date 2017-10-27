@@ -5,15 +5,15 @@ package tikape.runko;
  * @author anton
  */
 public class Kayttooikeus {
-    private String aseenNumero;
+    private int aseenNumero;
     private String hetu;
     
-    public Kayttooikeus(String numero, String hetu){
+    public Kayttooikeus(int numero, String hetu){
         this.aseenNumero=numero;
         this.hetu=hetu;
     }
 
-    public String getAseenNumero() {
+    public int getAseenNumero() {
         return aseenNumero;
     }
 
