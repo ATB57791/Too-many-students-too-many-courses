@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import static javassist.CtMethod.ConstParameter.integer;
 import tikape.runko.*;
 
 /**
@@ -43,27 +42,39 @@ public class KayttooikeusDao implements Dao<Kayttooikeus, Integer> {
         }
     }
 
-    public Map<String, ArrayList> pala(int a) throws SQLException {
-        Map<String, ArrayList> map = new HashMap<>();
-        ArrayList<String> s = new ArrayList<>();
+    public List<Varusmies> AseeseenOikeutetut(int aseenNumero) throws SQLException {//Varusmiehet, jotka ovat oikeutettuja aseeseen
+
         ArrayList<Varusmies> vm = new ArrayList<>();
-    
-    
-        try (Connection conn = database.getConnection(); PreparedStatement statement = conn.prepareStatement(
-                "SELECT nimi, hetu, aseTyyppi FROM Kayttooikeus INNER JOIN Varusmies ON hetu = varusmies_hetu INNER JOIN Ase ON aseenNumero = ase_aseenNumero WHERE ase_aseenNumero =?;")) {
-            statement.setInt(1, a);
+        String query = "SELECT nimi, hetu FROM Kayttooikeus INNER JOIN Varusmies ON hetu = varusmies_hetu WHERE ase_aseenNumero =?;";
+
+        try (Connection conn = database.getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, aseenNumero);
             try (ResultSet rs = statement.executeQuery();) {
-                s.add(rs.getString("aseTyyppi"));
-                map.put("1", s);
                 while (rs.next()) {
                     vm.add(new Varusmies(rs.getString("nimi"), rs.getString("hetu")));
                 }
-
             }
         }
 
-        map.put("2", vm);
-        return map;
+        return vm;
+    }
+    
+    
+        public List<Ase> AseetJoihinLupa(String hetu) throws SQLException {//Varusmiehet, jotka ovat oikeutettuja aseeseen
+
+        ArrayList<Ase> aseet = new ArrayList<>();
+        String query = "SELECT aseenNumero, aseTyyppi FROM Kayttooikeus INNER JOIN Ase ON aseenNumero = ase_aseenNumero WHERE varusmies_hetu =?;";
+
+        try (Connection conn = database.getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, hetu);
+            try (ResultSet rs = statement.executeQuery();) {
+                while (rs.next()) {
+                    aseet.add(new Ase(rs.getString("aseTyyppi"), rs.getInt("aseenNumero")));
+                }
+            }
+        }
+
+        return aseet;
     }
 
 //        Ase ase = (Ase) rs.getObject("kurssi");
@@ -86,7 +97,7 @@ public class KayttooikeusDao implements Dao<Kayttooikeus, Integer> {
      */
     @Override
     public List<Kayttooikeus> findAll() throws SQLException {
-      
+
         ArrayList<Kayttooikeus> oikeudet = new ArrayList<>();
         String query = "SELECT * FROM Kayttooikeus;";
         try (Connection conn = database.getConnection(); PreparedStatement statement = conn.prepareStatement(query); ResultSet rs = statement.executeQuery()) {

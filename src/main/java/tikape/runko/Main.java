@@ -11,8 +11,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         Database db = new Database("jdbc:sqlite:Aseluvat.db");
-        
-        
+
         AseDao aseDao = new AseDao(db);
         VarusmiesDao varusmiesDao = new VarusmiesDao(db);
         KayttooikeusDao kayttooikeusDao = new KayttooikeusDao(db);
@@ -20,19 +19,13 @@ public class Main {
         List<Varusmies> varusmiehet = varusmiesDao.findAll();
         List<Ase> aseet = aseDao.findAll();
 
-        int a1 = 615667;
-                    Map m1 = kayttooikeusDao.pala(a1);
-            Map m2 = kayttooikeusDao.pala(a1);
-
 
         Spark.get("/aseet/:id", (req, res) -> { // ase-sivu
             int a = Integer.parseInt(req.params(":id"));
+            Ase ase = aseDao.findOne(a);
 
-            Map m = kayttooikeusDao.pala(a);
-            ArrayList<String> lista = (ArrayList) m.get("1");
+            List<Varusmies> oikeudelliset = kayttooikeusDao.AseeseenOikeutetut(a);
 
-            Ase ase = new Ase(lista.get(0), a);
-            ArrayList<Varusmies> oikeudelliset = (ArrayList<Varusmies>) m.get("2");
             HashMap map = new HashMap<>();
             map.put("ase", ase);
             map.put("oikeudelliset", oikeudelliset);
@@ -54,20 +47,13 @@ public class Main {
             return new ModelAndView(map, "aseet");
         }, new ThymeleafTemplateEngine());
 
-        Spark.get("/varusmies/:id", (req, res) -> {
-            Varusmies vm = varusmiesDao.findOne(req.queryParams(":id"));
-            List<Kayttooikeus> ko = new ArrayList();
-            /*
-            ko.add(new Kayttooikeus("1", vm, ase1));
-            ko.add(new Kayttooikeus("2", vm, ase2));
-             */
-            System.out.println("Varusmiehen hetu: " + req.params(":id"));
-            System.out.println(vm);
+        Spark.get("/varusmiehet/:id", (req, res) -> {
+            Varusmies varusmies = varusmiesDao.findOne(req.params(":id"));
+            List<Ase> aseetJoihinOikeus = kayttooikeusDao.AseetJoihinLupa(varusmies.getHetu());
+
             HashMap map = new HashMap<>();
-            map.put("aseet", aseet);
-            map.put("nimi", vm.getNimi());
-            map.put("numero", vm.getHetu());
-            map.put("kayttooikeudet", ko);
+            map.put("varusmies", varusmies);
+            map.put("aseet", aseetJoihinOikeus);
             return new ModelAndView(map, "varusmies");
         }, new ThymeleafTemplateEngine());
 

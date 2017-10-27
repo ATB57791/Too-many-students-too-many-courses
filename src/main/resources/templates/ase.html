@@ -6,6 +6,7 @@
         <meta charset="utf-8" />
     </head>
     <body>
+        <h1>Aseen tiedot</h1>
         <table>
             <tr>
                 <th>Aseen nimi</th>
@@ -16,12 +17,19 @@
                 <td th:text="${ase.numero}">Aseen numero</td>
             </tr>
         </table>
-        
-               <ul>
+        <h2>Henkilöt, joilla on oikeus aseeseen</h2>
+        <ol>
             <li th:each="varusmies : ${oikeudelliset}">
                 <span th:text="${varusmies.nimi}"> nimi</span>
-                <span th:text="${varusmies.hetu}"> hetu</span>
+                <a th:href="@{~/varusmiehet/{id}(id=${varusmies.hetu})}">
+                    <span th:text="${varusmies.hetu}"> hetu</span>
+                </a>
             </li>
-        </ul>
+        </ol>
+
+        <a href="/paasivu" title="Palaa takaisin pääsivulle">
+            Takaisin
+        </a>
+
     </body>
 </html>

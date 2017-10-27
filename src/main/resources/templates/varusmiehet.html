@@ -4,56 +4,33 @@
     <head>
         <title>Varusmiehet</title>
         <meta charset="utf-8" />
+        <style>
+            table {
+                font-family: arial, san-serif;
+                border-collapse: collapse;
+                width: 50%;
+            }
+            td, th {
+                border: 2px, solid #dddddd;
+                text-align: left;
+                padding: 5 px;
+            }
+            tr:nth-child(odd){
+                background-color: #dddddd;
+            }
+        </style>
     </head>
 
     <body>
         <h1>Varusmiehet</h1>
-        /*
         <table>
             <tr>
-                <th>Company</th>
-                <th>Contact</th>
-                <th>Country</th>
+                <th>Varusmiehen nimi</th>
+                <th>Varusmiehen hetu</th>
             </tr>
-            <tr>
-                <td>Alfreds Futterkiste</td>
-                <td>Maria Anders</td>
-                <td>Germany</td>
-            </tr>
-            <tr>
-                <td>Centro comercial Moctezuma</td>
-                <td>Francisco Chang</td>
-                <td>Mexico</td>
-            </tr>
-            <tr>
-                <td>Ernst Handel</td>
-                <td>Roland Mendel</td>
-                <td>Austria</td>
-            </tr>
-            <tr>
-                <td>Island Trading</td>
-                <td>Helen Bennett</td>
-                <td>UK</td>
-            </tr>
-            <tr>
-                <td>Laughing Bacchus Winecellars</td>
-                <td>Yoshi Tannamuri</td>
-                <td>Canada</td>
-            </tr>
-            <tr>
-                <td>Magazzini Alimentari Riuniti</td>
-                <td>Giovanni Rovelli</td>
-                <td>Italy</td>
-            </tr>
-        </table>
-*/
-        <table>
             <tr th:each="varusmies : ${varusmiehet}">
-                <td>
-                    <a href="" th:href="@{~/varusmies/{id}(id=${varusmies.id})}" th:text="${varusmies}">
-                        Tkm Järvinen, 160800A4753
-                    </a>
-                </td>
+                <td th:text="${varusmies.nimi}"></td>
+                <td th:text="${varusmies.hetu}"></td>
             </tr>
         </table>
         <a href="/paasivu" title="Palaa takaisin pääsivulle">

@@ -21,27 +21,21 @@ public class VarusmiesDao implements Dao<Varusmies, Integer> {
         this.database = database;
     }
 
-    
     public Varusmies findOne(String hetu) throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Varusmies WHERE hetu = ?");
-        stmt.setString(1, hetu);
+        Varusmies o;
+        try (Connection connection = database.getConnection(); PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Varusmies WHERE hetu = ?")) {
+            stmt.setString(1, hetu);
+            try (ResultSet rs = stmt.executeQuery()) {
 
-        ResultSet rs = stmt.executeQuery();
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
+                if (!rs.next()) {
+                    return null;
+                } else {
+                    String id = rs.getString("hetu");
+                    String nimi = rs.getString("nimi");
+                    o = new Varusmies(nimi, id);
+                }
+            }
         }
-
-        String id = rs.getString("hetu");
-        String nimi = rs.getString("nimi");
-
-        Varusmies o = new Varusmies(nimi, id);
-
-        rs.close();
-        stmt.close();
-        connection.close();
-
         return o;
     }
 
@@ -57,7 +51,7 @@ public class VarusmiesDao implements Dao<Varusmies, Integer> {
 
         }
         return varusmiehet;
-   
+
     }
 
     @Override

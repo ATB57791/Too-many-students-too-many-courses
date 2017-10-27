@@ -7,48 +7,29 @@
     </head>
 
     <body>
-        <h1>Perustiedot</h1>
+        <h1>Varusmies</h1>
         <table>
             <tr>
                 <th>Nimi</th>
                 <th>Hetu</th>
             </tr>
             <tr>
-                <td th:text="${nimi}">
+                <td th:text="${varusmies.nimi}">
                     Tkm Järvinen
                 </td>
-                <td th:text="${numero}">
+                <td th:text="${varusmies.hetu}">
                     160800A4753
                 </td>
             </tr>
         </table>
-        <h1>Käyttöoikeudet</h1>
-        <table>
-            <tr th:each ="kayttooikeus : ${kayttooikeudet}">
-                <td>
-                    <a href="" th:href="@{~/ase/{id}(id=${kayttooikeus.numero})}" th:text="${kayttooikeus}" title="Mene tämän aseen sivulle">
-                        RK 62, 123456
-                    </a>
-                </td>
-                <td>
-                    <form method="post" action ="/kayttooikeus">
-                        <input type="hidden" name="ase" th:value="${kayttooikeus.numero}"/>
-                        <input type="hidden" name="hetu" th:value="${numero}"/>
-                        <button type="submit">Poista</button>
-                    </form>
-                </td>
-            </tr>
-        </table>
-        <form method ="post" action ="/kayttooikeus">
-            <input type="text" value="nimi" name="nimi"></input>
-            <input type="text" value="numero" name="numero"></input>
-            <button type="submit" title="Lisää varusmiehelle uusi käyttöoikeus">
-                Lisää käyttöoikeus
-            </button>
-        </form>
-        <form method ="post" th:action ="@{~/varusmies/poista/{id}(id=${numero})}" title="Poistaa varusmiehen kokonaan tietokannasta">
-            <button type ="submit">Poista varusmies</button>
-        </form>
-
+        <h1>Luvat</h1>
+        <ol>
+            <li th:each="ase : ${aseet}">
+                <span th:text="${ase.nimi}"></span>
+                <a th:href="@{~/aseet/{id}(id=${ase.numero})}">
+                    <span th:text="${ase.numero}"> hetu</span>
+                </a>
+            </li>
+        </ol>
     </body>
 </html>
