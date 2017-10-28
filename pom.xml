@@ -33,7 +33,7 @@
         </dependency>
     </dependencies>
     
-    <!-- projektin käynnistäminen Herokussa -->
+    <!-- projektin kaynnistaminen Herokussa -->
     <build>
         <plugins>
             <plugin>

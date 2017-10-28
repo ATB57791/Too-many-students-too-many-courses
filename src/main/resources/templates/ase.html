@@ -4,7 +4,23 @@
     <head>
         <title>Aseen tiedot</title>
         <meta charset="utf-8" />
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 40%;
+            }
+
+            td, th {
+                border: 5px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+        </style>
     </head>
+
+
     <body>
         <h1>Aseen tiedot</h1>
         <table>
@@ -44,11 +60,11 @@
 
         <br></br>
         <form method="post" th:action="@{~/aseenPoisto/{id}(id=${ase.numero})}">
-        <button type="submit" value="poista" name="poisto">Poista ase</button>
+            <button type="submit" value="poista" name="poisto">Poista ase</button>
         </form>
         <br></br>
 
-        <a href="/paasivu" title="Palaa takaisin pääsivulle">
+        <a href="/paasivu" title="Palaa takaisin paasivulle">
             Takaisin
         </a>
 

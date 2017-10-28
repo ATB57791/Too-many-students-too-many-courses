@@ -1,6 +1,6 @@
 # tikape-runko
 
-Tietokantojen perusteet -kurssilla tehtävän web-sovelluksen pohja.
+Tietokantojen perusteet -kurssilla tehtavan web-sovelluksen pohja.
 
 Tietokannan Aseluvat.db schematiikka:
 
@@ -18,7 +18,7 @@ Tietokannan Aseluvat.db schematiikka:
     FOREIGN KEY (varusmies_hetu) REFERENCES Varusmies(hetu),
     FOREIGN KEY (ase_aseenNumero) REFERENCES Ase(aseenNumero));
 
-Taulujen sisältö:
+Taulujen sisalto:
   Varusmies:
   
     INSERT INTO Varusmies(hetu, nimi) VALUES (

@@ -44,7 +44,7 @@ public class KayttooikeusDao implements Dao<Kayttooikeus, Integer> {
         return vm;
     }
 
-    public List<Ase> AseetJoihinLupa(String hetu) throws SQLException {//Aseet joihin kyseisellä varusmiehellä on lupa
+    public List<Ase> AseetJoihinLupa(String hetu) throws SQLException {//Aseet joihin kyseisella varusmiehella on lupa
 
         ArrayList<Ase> aseet = new ArrayList<>();
         String query = "SELECT aseenNumero, aseTyyppi FROM Kayttooikeus INNER JOIN Ase ON aseenNumero = ase_aseenNumero WHERE varusmies_hetu =?;";

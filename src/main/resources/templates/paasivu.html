@@ -4,41 +4,43 @@
     <head>
         <title>tikape web-sovellus 2017</title>
         <meta charset="utf-8" />
+
+        <style>
+            ol {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: #333333;
+            }
+
+            li {
+                float: left;
+            }
+
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 16px;
+                text-decoration: none;
+            }
+
+            li a:hover {
+                background-color: #111111;
+            }
+        </style>
     </head>
 
     <body>
-        <h1>P��sivu</h1>
+        <h1>Paasivu</h1>
         <ol>
-            <li>
-                <a href="/aseet" title="Listaa tietokannan kaikki aseet">
-                    Aseet
-                </a>
-            </li>
-            <li>
-                <a href="/varusmiehet" title="Listaa tietokannan kaikki varusmiehet">
-                    Varusmiehet
-                </a>
-            </li>
-            <li>
-                <a href="/aseenHaku" title="Etsi ase">
-                    Etsi ase
-                </a>
-            </li>
-            <li>
-                <a href="/varusmiehenHaku" title="Etsi varusmies">
-                    Etsi Varusmies
-                </a>
-            </li>
-            <li>
-                <a href="/lisaaAse" title="Lis�� ase">
-                    Lis�� ase
-                </a>
-            </li>
-            <li>
-                <a href="/varusmieslisays" title="Lis�� varusmies">
-                    Lis�� varusmies
-                </a>
-            </li>
+            <li><a href="/aseet" title="Listaa tietokannan kaikki aseet">Aseet</a></li>
+            <li><a href="/varusmiehet" title="Listaa tietokannan kaikki varusmiehet">Varusmiehet</a></li>
+            <li><a href="/aseenHaku" title="Etsi ase">Etsi ase</a></li>
+            <li><a href="/varusmiehenHaku" title="Etsi varusmies">Etsi Varusmies</a></li>
+            <li><a href="/lisaaAse" title="Lisaa ase">Lisaa ase</a></li>
+            <li><a href="/varusmieslisays" title="Lisaa varusmies">Lisaa varusmies</a></li>
         </ol>
     </body>
 </html>

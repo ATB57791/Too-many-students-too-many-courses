@@ -4,6 +4,21 @@
     <head>
         <title th:text="${nimi}">Varusmies sivu</title>
         <meta charset="utf-8" />
+
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 40%;
+            }
+
+            td, th {
+                border: 5px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+        </style>
     </head>
 
     <body>
@@ -15,7 +30,7 @@
             </tr>
             <tr>
                 <td th:text="${varusmies.nimi}">
-                    Tkm Järvinen
+                    Tkm Jarvinen
                 </td>
                 <td th:text="${varusmies.hetu}">
                     160800A4753
@@ -45,11 +60,11 @@
 
         <br></br>
         <form method="post" th:action="@{~/varusmiehenPoisto/{id}(id=${varusmies.hetu})}">
-        <button type="submit" value="poista" name="poistoa">Poista varusmies</button>
+            <button type="submit" value="poista" name="poistoa">Poista varusmies</button>
         </form>
         <br></br>
 
-        <a href="/paasivu" title="Palaa takaisin pääsivulle">
+        <a href="/paasivu" title="Palaa takaisin paasivulle">
             Takaisin
         </a>
     </body>

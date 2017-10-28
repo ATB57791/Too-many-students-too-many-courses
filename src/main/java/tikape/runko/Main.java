@@ -30,7 +30,7 @@ public class Main {
             return new ModelAndView(map, "ase");
         }, new ThymeleafTemplateEngine());
 
-        Spark.post("/aseet/:id", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
+        Spark.post("/aseet/:id", (req, res) -> { // kayttooikeuden lisays tietylle aseelle!
 
             String varusmiehenHetu = req.queryParams("varusmiehenHetu");
             String aseenNumero = req.params(":id");
@@ -46,7 +46,7 @@ public class Main {
 
             return "";
         });
-        Spark.post("/aseet/:id", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
+        Spark.post("/aseet/:id", (req, res) -> { // kayttooikeuden lisays tietylle aseelle!
 
             String varusmiehenHetu = req.queryParams("varusmiehenHetu");
             String aseenNumero = req.params(":id");
@@ -71,7 +71,7 @@ public class Main {
             return new ModelAndView(map, "aseet");
         }, new ThymeleafTemplateEngine());
 
-        Spark.post("/varusmiehet/:id", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
+        Spark.post("/varusmiehet/:id", (req, res) -> { // kayttooikeuden lisays tietylle aseelle!
 
             String varusmiehenHetu = req.params(":id");
             String aseenNumero = req.queryParams("aseenNumero");
@@ -181,11 +181,14 @@ public class Main {
             return new ModelAndView(map, "varusmieslisays");
         }, new ThymeleafTemplateEngine());
 
-        Spark.post("/varusmieslisays", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
-            Varusmies lisattava = new Varusmies(req.queryParams("varusmiehenNimi"), req.queryParams("varusmihenHetu"));
-            varusmiesDao.saveOrUpdate(lisattava);
+        Spark.post("/varusmieslisays", (req, res) -> { // kayttooikeuden lisays tietylle aseelle!
+            String varusmiehenHetu = req.queryParams("varusmiehenHetu");
             Map map = new HashMap();
-            return new ModelAndView(map, "varusmieslisays_ok");
+
+                Varusmies lisattava = new Varusmies(req.queryParams("varusmiehenNimi"), varusmiehenHetu);
+                varusmiesDao.saveOrUpdate(lisattava);
+                return new ModelAndView(map, "varusmieslisays_ok");
+
         }, new ThymeleafTemplateEngine());
 
         Spark.post("/aseenPoisto/:id", (req, res) -> { // Aseen poisto
