@@ -16,7 +16,6 @@ public class Main {
         VarusmiesDao varusmiesDao = new VarusmiesDao(db);
         KayttooikeusDao kayttooikeusDao = new KayttooikeusDao(db);
 
-
         Spark.get("/aseet/:id", (req, res) -> { // ase-sivu
             int a = Integer.parseInt(req.params(":id"));
 
@@ -37,7 +36,7 @@ public class Main {
             String aseenNumero = req.params(":id");
             Varusmies vm = varusmiesDao.findOne(varusmiehenHetu);
             Ase ase = aseDao.findOne(Integer.parseInt(aseenNumero));
-            
+
             if (vm != null && ase != null) {
                 Kayttooikeus ko = new Kayttooikeus(vm.getHetu(), ase.getNumero());
                 kayttooikeusDao.saveOrUpdate(ko);
@@ -47,13 +46,13 @@ public class Main {
 
             return "";
         });
-                Spark.post("/aseet/:id", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
+        Spark.post("/aseet/:id", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
 
             String varusmiehenHetu = req.queryParams("varusmiehenHetu");
             String aseenNumero = req.params(":id");
             Varusmies vm = varusmiesDao.findOne(varusmiehenHetu);
             Ase ase = aseDao.findOne(Integer.parseInt(aseenNumero));
-            
+
             if (vm != null && ase != null) {
                 Kayttooikeus ko = new Kayttooikeus(vm.getHetu(), ase.getNumero());
                 kayttooikeusDao.saveOrUpdate(ko);
@@ -63,8 +62,6 @@ public class Main {
 
             return "";
         });
-        
-
 
         Spark.get("/aseet", (req, res) -> {
 
@@ -73,8 +70,8 @@ public class Main {
             map.put("aseet", aseet);
             return new ModelAndView(map, "aseet");
         }, new ThymeleafTemplateEngine());
-        
-         Spark.post("/varusmiehet/:id", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
+
+        Spark.post("/varusmiehet/:id", (req, res) -> { // käyttöoikeuden lisäys tietylle aseelle!
 
             String varusmiehenHetu = req.params(":id");
             String aseenNumero = req.queryParams("aseenNumero");
@@ -191,5 +188,37 @@ public class Main {
             return new ModelAndView(map, "varusmieslisays_ok");
         }, new ThymeleafTemplateEngine());
 
+        Spark.post("/aseenPoisto/:id", (req, res) -> { // Aseen poisto
+            int aseenNumero = Integer.parseInt(req.params(":id"));
+            aseDao.delete(aseenNumero);
+            res.redirect("/aseet");
+            return "";
+
+        });
+        Spark.post("/varusmiehenPoisto/:id", (req, res) -> { // Aseen poisto
+            String hetu = req.params(":id");
+            varusmiesDao.delete(hetu);
+            res.redirect("/varusmiehet");
+            return "";
+
+        });
+        Spark.post("/aluvanPoisto/:id/:jd", (req, res) -> { // Aseen poisto
+            String hetu = req.params(":id");
+            int aseenNumero = Integer.parseInt(req.params(":jd"));
+            kayttooikeusDao.delete(hetu, aseenNumero);
+            res.redirect("/aseet/" + aseenNumero);
+            return "";
+
+        });
+        Spark.post("/vluvanPoisto/:id/:jd", (req, res) -> { // Aseen poisto
+            String hetu = req.params(":id");
+            int aseenNumero = Integer.parseInt(req.params(":jd"));
+            kayttooikeusDao.delete(hetu, aseenNumero);
+            res.redirect("/varusmiehet/" + hetu);
+            return "";
+
+        });
+
     }
+
 }

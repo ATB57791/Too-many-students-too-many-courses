@@ -27,22 +27,7 @@ public class KayttooikeusDao implements Dao<Kayttooikeus, Integer> {
         this.database = database;
     }
 
-    public List<Varusmies> findKo(Ase ase) throws SQLException {
-        List<Varusmies> vm = new ArrayList<>();
-
-        try (Connection conn = database.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT Varusmies.nimi, Varusmies.hetu FROM Kayttooikeus INNER JOIN Varusmies ON varusmies.hetu = Kayttooikeus.varusmies_hetu WHERE Kayttooikeus.ase_aseenNumero = ?;")) {
-            stmt.setInt(1, ase.getNumero());
-            try (ResultSet result = stmt.executeQuery()) {
-                while (result.next()) {
-                    vm.add(new Varusmies(result.getString("nimi"), result.getString("hetu")));
-                }
-                return vm;
-
-            }
-        }
-    }
-
-    public List<Varusmies> AseeseenOikeutetut(int aseenNumero) throws SQLException {//Varusmiehet, jotka ovat oikeutettuja aseeseen
+    public List<Varusmies> AseeseenOikeutetut(int aseenNumero) throws SQLException {//Varusmiehet, jotka ovat oikeutettuja kyseiseen aseeseen
 
         ArrayList<Varusmies> vm = new ArrayList<>();
         String query = "SELECT nimi, hetu FROM Kayttooikeus INNER JOIN Varusmies ON hetu = varusmies_hetu WHERE ase_aseenNumero =?;";
@@ -59,7 +44,7 @@ public class KayttooikeusDao implements Dao<Kayttooikeus, Integer> {
         return vm;
     }
 
-    public List<Ase> AseetJoihinLupa(String hetu) throws SQLException {//Varusmiehet, jotka ovat oikeutettuja aseeseen
+    public List<Ase> AseetJoihinLupa(String hetu) throws SQLException {//Aseet joihin kyseisellä varusmiehellä on lupa
 
         ArrayList<Ase> aseet = new ArrayList<>();
         String query = "SELECT aseenNumero, aseTyyppi FROM Kayttooikeus INNER JOIN Ase ON aseenNumero = ase_aseenNumero WHERE varusmies_hetu =?;";
@@ -76,24 +61,6 @@ public class KayttooikeusDao implements Dao<Kayttooikeus, Integer> {
         return aseet;
     }
 
-//        Ase ase = (Ase) rs.getObject("kurssi");
-//        Varusmies varusmies = (Varusmies) rs.getObject("varusmies");
-//        
-//        Kayttooikeus ks = new Kayttooikeus(ase.getAsenumero(), varusmies.getHetu());
-    /*
-    public List<Varusmies> aseeseenOikeutetut(Ase ase) throws SQLException {
-        
-        List<Varusmies> varusmiehet = new ArrayList<>();
-        List<Kayttooikeus> oikeudet = database.getKayttooikeudet();
-        VarusmiesDao varusmiesDao = new VarusmiesDao(database);
-        
-        for(Kayttooikeus oikeus: oikeudet){
-            if(Integer.parseInt(oikeus.getAseenNumero()) == ase.getNumero() and varusmiehet.contains())
-            varusmiehet.add(varusmiesDao.findOne(oikeus.getHetu()));
-        }
-        return varusmiehet;
-   
-     */
     @Override
     public List<Kayttooikeus> findAll() throws SQLException {
 
@@ -113,10 +80,10 @@ public class KayttooikeusDao implements Dao<Kayttooikeus, Integer> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void delete(Integer aseenNumero, String hetu) throws SQLException {
+    public void delete(String hetu, Integer aseenNumero) throws SQLException {
         String query = "DELETE FROM Kayttooikeus WHERE varusmies_hetu=? AND ase_aseenNumero=?";
-        Connection conn = database.getConnection();
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+        
+        try (Connection conn = database.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, hetu);
             stmt.setInt(2, aseenNumero);
             stmt.executeUpdate();
@@ -126,7 +93,7 @@ public class KayttooikeusDao implements Dao<Kayttooikeus, Integer> {
 
     @Override
     public Kayttooikeus saveOrUpdate(Kayttooikeus object) throws SQLException {
-        delete(object.getAseenNumero(), object.getHetu());
+        delete(object.getHetu(), object.getAseenNumero());
         String query = "INSERT INTO Kayttooikeus (varusmies_hetu, ase_aseenNumero) VALUES (?, ?)";
 
         try (Connection conn = database.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {

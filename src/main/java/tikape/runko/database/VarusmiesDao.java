@@ -14,20 +14,20 @@ import java.util.List;
 import tikape.runko.*;
 
 public class VarusmiesDao implements Dao<Varusmies, String> {
-
+    
     private Database database;
-
+    
     public VarusmiesDao(Database database) {
         this.database = database;
     }
-
+    
     @Override
     public Varusmies findOne(String hetu) throws SQLException {
         Varusmies o;
         try (Connection connection = database.getConnection(); PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Varusmies WHERE hetu = ?")) {
             stmt.setString(1, hetu);
             try (ResultSet rs = stmt.executeQuery()) {
-
+                
                 if (!rs.next()) {
                     return null;
                 } else {
@@ -40,33 +40,39 @@ public class VarusmiesDao implements Dao<Varusmies, String> {
         }
         
     }
-
+    
     @Override
     public List<Varusmies> findAll() throws SQLException {
-
+        
         ArrayList<Varusmies> varusmiehet = new ArrayList<>();
         String query = "SELECT * FROM Varusmies;";
         try (Connection conn = database.getConnection(); PreparedStatement statement = conn.prepareStatement(query); ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 varusmiehet.add(new Varusmies(rs.getString("nimi"), rs.getString("hetu")));
             }
-
+            
         }
         return varusmiehet;
-
+        
     }
-
+    
     @Override
     public void delete(String hetu) throws SQLException {
-        String query="DELETE FROM Varusmies WHERE hetu=?";
-        Connection conn = database.getConnection();
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+        String query = "DELETE FROM Varusmies WHERE hetu=?";
+        KayttooikeusDao kd = new KayttooikeusDao(database);
+        List<Ase> aseet = kd.AseetJoihinLupa(hetu);
+        
+        for (Ase x : aseet) {
+            kd.delete(hetu, x.getNumero());
+        }
+        
+        try (Connection conn = database.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, hetu);
             stmt.executeUpdate();
             stmt.close();
         }
     }
-
+    
     @Override
     public Varusmies saveOrUpdate(Varusmies object) throws SQLException {
         delete(object.getHetu());
@@ -80,5 +86,5 @@ public class VarusmiesDao implements Dao<Varusmies, String> {
         }
         return object;
     }
-
+    
 }

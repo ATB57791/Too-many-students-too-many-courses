@@ -29,16 +29,26 @@
                 <a th:href="@{~/aseet/{id}(id=${ase.numero})}">
                     <span th:text="${ase.numero}"> hetu</span>
                 </a>
+                <form method="post" th:action="@{~/vluvanPoisto/{id}/{jd}(id=${varusmies.hetu}, jd=${ase.numero})}">
+                    <button type="submit" th:name="poisto">Poista lupa</button>
+                </form>
             </li>
         </ol>
         <form method="post" th:action="@{~/varusmiehet/{id}(id=${varusmies.hetu})}">
             <fieldset> <legend>Lisaa oikeus aseeseen</legend>
                 Anna aseen numero
                 <br></br>
-                <input type="number" required="yes" name="aseenNumero"></input>
+                <input type="number" required="" name="aseenNumero"></input>
                 <input type="submit" value="lisaa"></input>
             </fieldset>
         </form>
+
+        <br></br>
+        <form method="post" th:action="@{~/varusmiehenPoisto/{id}(id=${varusmies.hetu})}">
+        <button type="submit" value="poista" name="poistoa">Poista varusmies</button>
+        </form>
+        <br></br>
+
         <a href="/paasivu" title="Palaa takaisin pääsivulle">
             Takaisin
         </a>

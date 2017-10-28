@@ -1,6 +1,8 @@
 package tikape.runko.database;
 
 import java.sql.Connection;
+import java.util.*;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,8 +36,14 @@ public class AseDao implements Dao<Ase, Integer> {
     @Override
     public void delete(Integer key) throws SQLException {
         String query = "DELETE FROM Ase WHERE aseenNumero=?";
-        Connection conn = database.getConnection();
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+        KayttooikeusDao kd = new KayttooikeusDao(database);
+        List<Varusmies> varusmiehet = kd.AseeseenOikeutetut(key);
+
+        for (Varusmies x : varusmiehet) {
+            kd.delete(x.getHetu(), key);
+        }
+
+        try (Connection conn = database.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, key);
             stmt.executeUpdate();
             stmt.close();
@@ -46,12 +54,14 @@ public class AseDao implements Dao<Ase, Integer> {
     public Ase saveOrUpdate(Ase object) throws SQLException {
         delete(object.getNumero());
         String query = "INSERT INTO Ase (aseenNumero, Asetyyppi) VALUES (?, ?)";
-        Connection conn = database.getConnection();
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        try (Connection conn = database.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, object.getNumero());
             stmt.setString(2, object.getNimi());
             stmt.executeUpdate();
             stmt.close();
+        } catch (SQLException e) {
+            return null;
         }
         return object;
     }
@@ -59,8 +69,8 @@ public class AseDao implements Dao<Ase, Integer> {
     @Override
     public Ase findOne(Integer key) throws SQLException {
         Ase o;
-        try (Connection connection = database.getConnection(); 
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Ase WHERE aseenNumero = ?")) {
+        try (Connection connection = database.getConnection();
+                PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Ase WHERE aseenNumero = ?")) {
             stmt.setInt(1, key);
             try (ResultSet rs = stmt.executeQuery()) {
                 boolean hasOne = rs.next();
