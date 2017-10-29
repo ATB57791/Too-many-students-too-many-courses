@@ -73,9 +73,12 @@ Web-sovelluksessa käytetyt osoitteet:
 osoitteet lisätty seuraaviin:
 
     ase.html
+    aseenHaku.html
     aseet.html
-    asevirhe.html
-    etsinta.html
     lisaaase.html
     lisaavarusmies.html
     paasivu.html
+    VarusmiesHaku.html
+
+    Suosittelemme aloittamaan sivusta 
+    http://localhost:4567/paasivu
