@@ -116,8 +116,8 @@ public class Main {
             Map map = new HashMap();
             return new ModelAndView(map, "paasivu");
         }, new ThymeleafTemplateEngine());
-        
-                Spark.get("/", (req, res) -> {
+
+        Spark.get("/", (req, res) -> {
             Map map = new HashMap();
             return new ModelAndView(map, "paasivu");
         }, new ThymeleafTemplateEngine());
@@ -137,6 +137,11 @@ public class Main {
             return new ModelAndView(map, "lisaaAse");
         }, new ThymeleafTemplateEngine());
 
+        Spark.get("/lisaaAse_ok", (req, res) -> {
+            Map map = new HashMap();
+            return new ModelAndView(map, "lisaaAse_ok");
+        }, new ThymeleafTemplateEngine());
+
         Spark.post("/lisaaAse", (req, res) -> {
 
             String aseenNimi = req.queryParams("aseenNimi");
@@ -145,10 +150,10 @@ public class Main {
             Ase ase = new Ase(aseenNimi, Integer.parseInt(aseenNumero));
             aseDao.saveOrUpdate(new Ase(aseenNimi, Integer.parseInt(aseenNumero)));
 
-            Map map = new HashMap();
-            return new ModelAndView(map, "lisaaAse_ok");
+            res.redirect("/lisaaAse_ok");
+            return "";
 
-        }, new ThymeleafTemplateEngine());
+        });
 
         Spark.post("/varusmiehenHaku", (Request req, Response res) -> {// hakuominaisuus aseelle tai varusmiehelle
             Map map = new HashMap();
@@ -159,13 +164,24 @@ public class Main {
             map.put("varusmies", varusmies);
 
             if (varusmies == null) {
-                return new ModelAndView(map, "eiloytynyt");
+                res.redirect("/eiLoytynyt_B");
+                return "";
 
             } else {
-
-                return new ModelAndView(map, "varusmies");
+                res.redirect("/varusmiehet/" + varusmiehenHetu);
+                return "";
 
             }
+
+        });
+        Spark.get("/eiLoytynyt_A", (req, res) -> {
+            Map map = new HashMap();
+            return new ModelAndView(map, "eiLoytynyt_A");
+        }, new ThymeleafTemplateEngine());
+
+        Spark.get("/eiLoytynyt_B", (req, res) -> {
+            Map map = new HashMap();
+            return new ModelAndView(map, "eiLoytynyt_B");
         }, new ThymeleafTemplateEngine());
 
         Spark.post("/aseenHaku", (Request req, Response res) -> {// hakuominaisuus aseelle
@@ -177,29 +193,37 @@ public class Main {
             map.put("ase", ase);
 
             if (ase == null) {
-                return new ModelAndView(map, "eiloytynyt");
+                res.redirect("/eiLoytynyt_A");
+                return "";
 
             } else {
-
-                return new ModelAndView(map, "ase");
+                res.redirect("/aseet/" + aseenNumero);
+                return "";
 
             }
-        }, new ThymeleafTemplateEngine());
+        });
 
         Spark.get("/varusmieslisays", (req, res) -> {
             Map map = new HashMap();
             return new ModelAndView(map, "varusmieslisays");
         }, new ThymeleafTemplateEngine());
+        
+        
+        Spark.get("/varusmieslisays_ok", (req, res) -> {
+            Map map = new HashMap();
+            return new ModelAndView(map, "varusmieslisays_ok");
+        }, new ThymeleafTemplateEngine());
 
         Spark.post("/varusmieslisays", (req, res) -> { // kayttooikeuden lisays tietylle aseelle!
             String varusmiehenHetu = req.queryParams("varusmiehenHetu");
-            Map map = new HashMap();
 
             Varusmies lisattava = new Varusmies(req.queryParams("varusmiehenNimi"), varusmiehenHetu);
             varusmiesDao.saveOrUpdate(lisattava);
-            return new ModelAndView(map, "varusmieslisays_ok");
+            
+            res.redirect("/varusmieslisays_ok");
+            return "";
 
-        }, new ThymeleafTemplateEngine());
+        });
 
         Spark.post("/aseenPoisto/:id", (req, res) -> { // Aseen poisto
             int aseenNumero = Integer.parseInt(req.params(":id"));
