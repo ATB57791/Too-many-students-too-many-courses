@@ -54,28 +54,28 @@ Taulujen sisalto:
 
 Web-sovelluksessa käytetyt osoitteet:
 
-näytä pääsivu: get->/paasivu (paasivu)
-näytä aseet: get->/aseet (aseet)
-näytä varusmiehet: get->/varusmiehet (varusmiehet)
-näytä haku: get->/haku, suorita haku: post->/haku (etsinta)
-näytä aseen lisäys: get->/aselisays, suorita aseen lisäys: post->/aselisays (lisaaase)
-näytä varusmiehen lisäys: get->/varusmieslisays (lisaavarusmies)
-suorita varusmiehen lisäys: post->/varusmieslisays
-näytä yksittäinen ase: get->/ase/:id, missä :id on aseen numero (ase)
-poista yksittäinen ase tietokannasta: post->/ase/poista/:id
-lisää aseelle käyttöoikeus: post->/ase/:id
-näytä yksittäinen varusmies: get->/varusmies/:id, missä :id on varusmiehen hetu (varusmies)
-näytä varusmies tai ase: get-> /:id, missä id voi olla varusmiehen hetu tai aseen numero
-poista yksittäinen varusmies tietokannasta: post->/varusmies/poista/:id
-lisää varusmiehelle käyttöoikeus: post->/kayttooikeus
-poista varusmieheltä käyttöoikeus: get->/kayttooikeus/:id, missä id on kayttooikeuden id
+    näytä pääsivu: get->/paasivu (paasivu)
+    näytä aseet: get->/aseet (aseet)
+    näytä varusmiehet: get->/varusmiehet (varusmiehet)
+    näytä haku: get->/haku, suorita haku: post->/haku (etsinta)
+    näytä aseen lisäys: get->/aselisays, suorita aseen lisäys: post->/aselisays (lisaaase)
+    näytä varusmiehen lisäys: get->/varusmieslisays (lisaavarusmies)
+    suorita varusmiehen lisäys: post->/varusmieslisays
+    näytä yksittäinen ase: get->/ase/:id, missä :id on aseen numero (ase)
+    poista yksittäinen ase tietokannasta: post->/ase/poista/:id
+    lisää aseelle käyttöoikeus: post->/ase/:id
+    näytä yksittäinen varusmies: get->/varusmies/:id, missä :id on varusmiehen hetu (varusmies)
+    näytä varusmies tai ase: get-> /:id, missä id voi olla varusmiehen hetu tai aseen numero    
+    poista yksittäinen varusmies tietokannasta: post->/varusmies/poista/:id
+    lisää varusmiehelle käyttöoikeus: post->/kayttooikeus
+    poista varusmieheltä käyttöoikeus: get->/kayttooikeus/:id, missä id on kayttooikeuden id
 
 osoitteet lisätty seuraaviin:
 
-ase.html
-aseet.html
-asevirhe.html
-etsinta.html
-lisaaase.html
-lisaavarusmies.html
-paasivu.html
+    ase.html
+    aseet.html
+    asevirhe.html
+    etsinta.html
+    lisaaase.html
+    lisaavarusmies.html
+    paasivu.html
