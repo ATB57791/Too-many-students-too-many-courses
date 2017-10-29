@@ -5,7 +5,7 @@ David Forsman, 014245068
 
 Oula Magga, 014021224
 
-Anton Rantamaa. 014471146
+Anton Rantamaa, 014471146
 
 Jessica Koski, 01489371
 
