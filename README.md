@@ -1,8 +1,11 @@
 # tikape-runko
 Tekijät:
 David Forsman, 014245068
+
 Oula Magga
+
 Anton Rantamaa
+
 Jessica Koski (ei osallistunut projektin alun jälkeen projektiin)
 
 Tietokantojen perusteet -kurssilla tehtavan web-sovelluksen pohja:
