@@ -7,7 +7,7 @@ Oula Magga, 014021224
 
 Anton Rantamaa. 014471146
 
-Jessica Koski 01489371
+Jessica Koski, 01489371
 
 Tietokantojen perusteet -kurssilla tehtavan web-sovelluksen pohja:
 
