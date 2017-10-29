@@ -116,6 +116,11 @@ public class Main {
             Map map = new HashMap();
             return new ModelAndView(map, "paasivu");
         }, new ThymeleafTemplateEngine());
+        
+                Spark.get("/", (req, res) -> {
+            Map map = new HashMap();
+            return new ModelAndView(map, "paasivu");
+        }, new ThymeleafTemplateEngine());
 
         Spark.get("/aseenHaku", (req, res) -> {
             Map map = new HashMap();
