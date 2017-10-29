@@ -5,11 +5,16 @@ import java.util.*;
 import spark.template.thymeleaf.*;
 import java.sql.*;
 import static java.util.Optional.empty;
+import static spark.Spark.port;
 import tikape.runko.database.*;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        // asetetaan portti jos heroku antaa PORT-ympäristömuuttujan
+        if (System.getenv("PORT") != null) {
+            port(Integer.valueOf(System.getenv("PORT")));
+        }
 
         Database db = new Database("jdbc:sqlite:Aseluvat.db");
         AseDao aseDao = new AseDao(db);
@@ -185,9 +190,9 @@ public class Main {
             String varusmiehenHetu = req.queryParams("varusmiehenHetu");
             Map map = new HashMap();
 
-                Varusmies lisattava = new Varusmies(req.queryParams("varusmiehenNimi"), varusmiehenHetu);
-                varusmiesDao.saveOrUpdate(lisattava);
-                return new ModelAndView(map, "varusmieslisays_ok");
+            Varusmies lisattava = new Varusmies(req.queryParams("varusmiehenNimi"), varusmiehenHetu);
+            varusmiesDao.saveOrUpdate(lisattava);
+            return new ModelAndView(map, "varusmieslisays_ok");
 
         }, new ThymeleafTemplateEngine());
 
