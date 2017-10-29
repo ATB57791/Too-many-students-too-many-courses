@@ -9,6 +9,9 @@ Anton Rantamaa, 014471146
 
 Jessica Koski, 01489371
 
+Löytyy herokusta:
+https://whispering-dusk-31485.herokuapp.com/
+
 Tietokantojen perusteet -kurssilla tehtavan web-sovelluksen pohja:
 
 Tietokannan Aseluvat.db schematiikka:
@@ -81,4 +84,4 @@ osoitteet lisätty seuraaviin:
     VarusmiehenHaku.html
 
     Suosittelemme aloittamaan sivusta 
-    http://localhost:4567/paasivu
+    http://localhost:4567/
