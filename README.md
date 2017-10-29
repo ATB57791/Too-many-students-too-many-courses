@@ -3,11 +3,11 @@ Tekijät:
 
 David Forsman, 014245068
 
-Oula Magga
+Oula Magga, 014021224
 
-Anton Rantamaa
+Anton Rantamaa. 014471146
 
-Jessica Koski (ei osallistunut projektin alun jälkeen projektiin)
+Jessica Koski 01489371
 
 Tietokantojen perusteet -kurssilla tehtavan web-sovelluksen pohja:
 
