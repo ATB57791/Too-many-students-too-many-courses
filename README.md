@@ -78,7 +78,7 @@ osoitteet lisätty seuraaviin:
     lisaaase.html
     lisaavarusmies.html
     paasivu.html
-    VarusmiesHaku.html
+    VarusmiehenHaku.html
 
     Suosittelemme aloittamaan sivusta 
     http://localhost:4567/paasivu
